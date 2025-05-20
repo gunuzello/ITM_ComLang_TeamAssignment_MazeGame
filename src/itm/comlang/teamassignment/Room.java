@@ -28,9 +28,13 @@ import java.util.Scanner;
                 String line = scanner.nextLine();
                 for (int j = 0; j < cols; j++) {
                     map[i][j] = line.charAt(j);
+                    
                 }
             }
-        }
+           
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+       }
         
     }
     public void printRoom() {
