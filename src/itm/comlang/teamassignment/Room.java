@@ -38,6 +38,11 @@ import java.util.Scanner;
         
     }
     public void printRoom() {
+        System.out.print("+");
+        for (int i = 0; i < cols; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
         
         
     }
