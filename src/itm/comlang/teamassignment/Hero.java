@@ -15,8 +15,23 @@ public class Hero {
     private int x;
     private int y;
     
-    public Hero () {
-        
+    public Hero (int x, int y) {
+        this.hp = 25;
+        this.x = x;
+        this.y = y;
+        this.weapon = "";
+        this.hasKey = false;
     }
+    public int Attack (int damage) {
+        return this.hp -= damage;
+    }
+    public int heal (int portion) {
+        return this.hp += portion;
+    }
+    public String equipWeapon (String weapon) {
+        return this.weapon = weapon;
+    }
+    
+    
            
 }
