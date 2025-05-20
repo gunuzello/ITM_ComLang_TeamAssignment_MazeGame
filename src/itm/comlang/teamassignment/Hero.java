@@ -9,5 +9,14 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 public class Hero {
+    private int hp;
+    private String weapon;
+    private boolean hasKey;
+    private int x;
+    private int y;
     
+    public Hero () {
+        
+    }
+           
 }
