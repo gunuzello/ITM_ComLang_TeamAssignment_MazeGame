@@ -4,10 +4,22 @@
  */
 package itm.comlang.teamassignment;
 
+import java.util.Scanner;
+
 /**
  *
  * @author ohkyounghun
  */
 public class Game {
     
+    private Hero hero;
+    private Room room;
+
+    public Game () {
+        
+    }
+    public void GameRunning () {
+        Scanner sc = new Scanner(System.in);
+        
+    }
 }

@@ -9,5 +9,14 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 public class Weapon {
+    private String weaponName;
+    private int weaponDamage;
+    
+    public Weapon () {
+        
+    }
+    public String getWeapon () {
+        return this.weaponName;
+    }
     
 }

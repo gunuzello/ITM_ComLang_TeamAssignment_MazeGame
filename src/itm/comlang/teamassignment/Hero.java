@@ -9,29 +9,80 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 public class Hero {
+
     private int hp;
-    private String weapon;
     private boolean hasKey;
     private int x;
     private int y;
-    
-    public Hero (int x, int y) {
+    private Weapon weapon;
+
+    public Hero(int x, int y) {
         this.hp = 25;
         this.x = x;
         this.y = y;
-        this.weapon = "";
         this.hasKey = false;
     }
-    public int Attack (int damage) {
+
+    public int attack(int damage) {
         return this.hp -= damage;
     }
-    public int heal (int portion) {
+
+    public int heal(int portion) {
         return this.hp += portion;
     }
-    public String equipWeapon (String weapon) {
-        return this.weapon = weapon;
+
+    public void equipWeapon(Weapon weapon) {
+        this.weapon = weapon;
     }
-    
-    
-           
+
+    public void move(String direction, char[][] map) {
+
+        int newX = this.x;
+        int newY = this.y;
+        /*이중 배열의 위치
+           y → (열)
+        0   1   2   3   4
+      +---+---+---+---+---+
+x=0 → | 0 | 1 | 2 | 3 | 4 |   ← 맨 위 (map[0][0]이 여)
+x=1 → |   |   |   |   |   |
+x=2 → |   |   |   |   |   |
+x=3 → |   |   |   |   |   |기
+x=4 → |   |   |   |   |   |
+x=5 → |   |   |   |   |   |   ← 맨 아래
+      +---+---+---+---+---+ */
+
+        if (direction.equals("u")) {
+            newX--;
+        } else if (direction.equals("d")) {
+            newX++;
+        } else if (direction.equals("l")) {
+            newY--;
+        } else if (direction.equals("r")) {
+            newY++;
+        } else {
+            System.out.println("Invalid direction!");
+        }
+        this.x = newX;
+        this.y = newY;
+
+    }
+    public int getX () {
+        return this.x;
+    }
+    public int getY () {
+        return this.y;
+    }
+    public boolean hasKey () {
+        return this.hasKey;
+    }
+    public void earnKey () {
+        this.hasKey = true;
+    }
+    public boolean isStillAlive () {
+        if (this.hp > 0) {
+            return true;
+        }
+        return false;
+    }
+
 }
