@@ -9,5 +9,11 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 public class Potion {
+    private String potionName;
+    private int healAmount;
     
+    public Potion (String potionName , int healAmount) {
+        this.potionName = potionName;
+        this.healAmount = healAmount;
+    }
 }
