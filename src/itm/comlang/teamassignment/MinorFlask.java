@@ -9,22 +9,17 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 public class MinorFlask extends Potion {
-    
+
     public MinorFlask() {
         super("Minor Flask", 6); // 어차피 고정된 값이니까.
-        
+
     }
-    
-    public Potion charToPotion(char c) {  
-        if ( c == 'm') return new MinorFlask();
-        else return null; 
-    }
-    
+
     @Override
     public String getPotionName() {
         return "Minor Flask"; // 어차피 고정된 값이니까.
-    } 
-    
+    }
+
     @Override
     public int getHealAmount() {
         return 6; // 어차피 고정된 값이니까.
