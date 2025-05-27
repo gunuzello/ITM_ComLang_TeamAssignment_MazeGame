@@ -5,6 +5,8 @@
 package itm.comlang.teamassignment;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -65,5 +67,32 @@ public class Room {
         }
         System.out.println("+");
 
+    }
+    public int[] findHeroLocation() {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == '@') {
+                    return new int[]{i,j}; // 배열을 리턴 -> {x,y}와 같음
+                }
+            }
+        }
+        return null; // @가 없으면 그냥 null 리턴.
+    }
+    public int[] findRandomEmptySpace() { // 위 메서드를 사용했는데 @가 없으면 랜덤으로 지정해줘야하므로 필요함.
+                                          // 아마 Game클래스에서 if(null) -> findRandomEmptySpace() 실행하는 순서로 로직 구현해야할듯.
+        ArrayList<int[]> emptyspace = new ArrayList<>();
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == ' ') {
+                    emptyspace.add(new int[]{i,j}); // 리스트에 빈 좌표들을 저장
+                }
+            }
+        }
+        if (emptyspace.isEmpty()) { 
+            return null; // 맵에 빈공간이 없을경우 null 리턴
+        }
+        Random random = new Random(); // 랜덤하게 정수를 뽑아주는 클래스 (자바유틸)
+        return emptyspace.get(random.nextInt(emptyspace.size())); // nextInt() 메서드는 랜덤으로 숫자를 뽑아주므로 , ()안에 배열 크기를 초과하는 
+                                                                  // 불상사를 방지하기위해 .size()로 방지.
     }
 }

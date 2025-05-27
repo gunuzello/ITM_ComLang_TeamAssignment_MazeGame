@@ -8,7 +8,7 @@ package itm.comlang.teamassignment;
  *
  * @author ohkyounghun
  */
-public class Potion {
+public abstract class Potion { // 직접 객체 생성이 불가능함 -> 추상클래스로 지정했기때문
     private String potionName;
     private int healAmount;
     
@@ -17,25 +17,17 @@ public class Potion {
         this.healAmount = healAmount;
     }
     
-    public String getPotionName() {
-        return this.potionName;
-    }
+    public abstract String getPotionName();
     
-    public int getHealAmount() {
-        return this.healAmount;
-    }
+    
+    public abstract int getHealAmount();
+    
     
     @Override
     public String toString() {
         return  this.potionName + " (+" + this.healAmount + " HP)";
     }
     
-    public static final Potion MINOR_FLASK = new Potion("Minor Flask" , 6);
-    public static final Potion BIG_FLASK = new Potion("Big Flask" , 12);
     
-    public static Potion charToPotion(char c) {
-        if ( c == 'm') return MINOR_FLASK;
-        else if ( c == 'B') return BIG_FLASK;
-        else return null;
-    }
+   
 }
