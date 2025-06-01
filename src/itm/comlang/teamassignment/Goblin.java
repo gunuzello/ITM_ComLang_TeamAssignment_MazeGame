@@ -13,6 +13,6 @@ package itm.comlang.teamassignment;
 public class Goblin extends Monster {
 
     public Goblin(int x, int y, boolean keyHolder) {
-        super(x, y, 8, 2, keyHolder);
+        super("Goblin",x, y, 8, 2, keyHolder);
     }
 }

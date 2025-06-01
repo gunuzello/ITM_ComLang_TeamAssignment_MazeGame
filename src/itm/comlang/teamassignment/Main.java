@@ -4,6 +4,8 @@
  */
 package itm.comlang.teamassignment;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gunu_zello
@@ -22,6 +24,11 @@ public class Main {
         room2.printRoom();
         room3.printRoom();
         room4.printRoom();
+        System.out.println(room1.getMonsters());
+        System.out.println(room1.getPotions());
+        System.out.println(room1.getWeapons());
+       
+        
 
     }
 

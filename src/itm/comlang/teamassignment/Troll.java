@@ -13,6 +13,6 @@ package itm.comlang.teamassignment;
 public class Troll extends Monster {
 
     public Troll(int x, int y, boolean keyHolder) {
-        super(x, y, 16, 4, keyHolder);
+        super("Troll", x, y, 16, 4, keyHolder);
     }
 }
