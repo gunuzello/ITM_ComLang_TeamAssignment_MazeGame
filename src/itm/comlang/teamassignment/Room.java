@@ -18,6 +18,10 @@ public class Room {
     private char[][] map;
     private int rows;
     private int cols;
+    // Room에 존재하는 게임 요소들을 저장할 리스트
+    private ArrayList<Weapon> weapons = new ArrayList<>();
+    private ArrayList<Potion> potions = new ArrayList<>();
+    private ArrayList<Monster> monsters = new ArrayList<>();
 
     public Room(String filePath) {
         try (Scanner scanner = new Scanner(Paths.get(filePath))) {
@@ -41,6 +45,24 @@ public class Room {
             System.out.println("Error: " + e.getMessage());
         }
 
+    }
+
+    // 맵을 순회하면서 각 좌표의 문자를 기반으로 객체 생성 및 리스트 추가
+    private void scanEntitiesFromMap() {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                char c = map[i][j];
+                Object obj = EntityFactory.createEntityFromChar(c, i, j);
+
+                if (obj instanceof Weapon) {
+                    weapons.add((Weapon) obj);
+                } else if (obj instanceof Potion) {
+                    potions.add((Potion) obj);
+                } else if (obj instanceof Monster) {
+                    monsters.add((Monster) obj);
+                }
+            }
+        }
     }
 
     public void printRoom() {
@@ -94,7 +116,29 @@ public class Room {
         Random random = new Random(); // 랜덤하게 정수를 뽑아주는 클래스 (자바유틸)
         return emptyspace.get(random.nextInt(emptyspace.size())); // nextInt() 메서드는 랜덤으로 숫자를 뽑아주므로 , ()안에 배열 크기를 초과하는 
         // 불상사를 방지하기위해 .size()로 방지.
+    }// 게임 로직에서 사용할 수 있도록 각 리스트 getter 제공
+
+    public ArrayList<Weapon> getWeapons() {
+        return weapons;
     }
 
+    public ArrayList<Potion> getPotions() {
+        return potions;
+    }
 
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public char[][] getMap() {
+        return map;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
 }
