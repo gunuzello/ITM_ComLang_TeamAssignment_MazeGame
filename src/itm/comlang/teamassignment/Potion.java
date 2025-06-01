@@ -8,40 +8,39 @@ package itm.comlang.teamassignment;
  *
  * @author ohkyounghun
  */
-public abstract class Potion { // 직접 객체 생성이 불가능함 -> 추상클래스로 지정했기때
+// 💊 Potion 클래스
+public class Potion {
 
-    private String potionName;
+    private String name;
     private int healAmount;
+    private int x;
+    private int y;
 
-    protected Potion(String potionName, int healAmount) {
-        this.potionName = potionName;
+    public Potion(String name, int healAmount, int x, int y) {
+        this.name = name;
         this.healAmount = healAmount;
+        this.x = x;
+        this.y = y;
     }
 
-    public String getPotionName() {
-        return this.potionName;
+    public String getName() {
+        return name;
     }
 
     public int getHealAmount() {
-        return this.healAmount;
+        return healAmount;
     }
 
-    public static Potion charToPotion(char c) {
-        /* static을 부여함으로써 객체 없이도 바로 접근하게 만듬. 예시: Potion potion = Potion.charToPotion(cell); 이런식으로 
-        Game 클래스에서 호출 가능. */
+    public int getX() {
+        return x;
+    }
 
-        if (c == 'm') {
-            return new MinorFlask();
-        } else if (c == 'B') {
-            return new BigFlask();
-        } else {
-            return null;
-        }
+    public int getY() {
+        return y;
     }
 
     @Override
     public String toString() {
-        return this.potionName + " (+" + this.healAmount + " HP)";
+        return name + " (+" + healAmount + " HP)";
     }
-
 }

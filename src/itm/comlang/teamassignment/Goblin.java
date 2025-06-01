@@ -10,23 +10,9 @@ package itm.comlang.teamassignment;
  */
 
 /* Goblin 클래스 - HP 3, Damage 1 */
-class Goblin extends Monster {
-    public Goblin(int x, int y) {
-        super(x, y, false);
-    }
+public class Goblin extends Monster {
 
-    @Override
-    public int getInitialHp() {
-        return 3;
-    }
-
-    @Override
-    public int getDamageValue() {
-        return 1;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "G";
+    public Goblin(int x, int y, boolean keyHolder) {
+        super(x, y, 8, 2, keyHolder);
     }
 }

@@ -10,9 +10,7 @@ package itm.comlang.teamassignment;
  */
 public class BigFlask extends Potion {
 
-    public BigFlask() {
-        super("Big Flask", 12); // 어차피 고정된 값이니까.
-
+    public BigFlask(int x, int y) {
+        super("Big Flask", 12, x, y);
     }
-
 }

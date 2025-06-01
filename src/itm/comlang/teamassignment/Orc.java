@@ -10,23 +10,8 @@ package itm.comlang.teamassignment;
  */
 
 /* Orc 클래스 - HP 8, Damage 3 */
-class Orc extends Monster {
-    public Orc(int x, int y) {
-        super(x, y, false);
-    }
-
-    @Override
-    public int getInitialHp() {
-        return 8;
-    }
-
-    @Override
-    public int getDamageValue() {
-        return 3;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "O";
+public class Orc extends Monster {
+    public Orc(int x, int y, boolean keyHolder) {
+        super(x, y, 12, 3, keyHolder);
     }
 }
