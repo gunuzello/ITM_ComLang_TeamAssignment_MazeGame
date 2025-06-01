@@ -8,6 +8,8 @@ package itm.comlang.teamassignment;
  *
  * @author gunu_zello
  */
-public class WeakSword {
-    
+public class WeakSword extends Weapon {
+    public WeakSword() {
+        super("Weak Sword", 2);
+    }
 }

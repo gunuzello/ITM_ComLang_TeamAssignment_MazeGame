@@ -9,14 +9,30 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 public abstract class Weapon {
+
     private String weaponName;
     private int weaponDamage;
-    
-    public Weapon () {
-        
+
+    public Weapon() {
+
     }
-    public String getWeapon () {
+
+    public Weapon(String weaponName, int weaponDamage) {
+        this.weaponName = weaponName;
+        this.weaponDamage = weaponDamage;
+    }
+
+    public int getWeaponDamage() {
+        return this.weaponDamage;
+    }
+
+    public String getWeapon() {
         return this.weaponName;
     }
-    
+
+    @Override
+    public String toString() {
+        return weaponName + " (Damage: " + weaponDamage + ")";
+    }
+
 }

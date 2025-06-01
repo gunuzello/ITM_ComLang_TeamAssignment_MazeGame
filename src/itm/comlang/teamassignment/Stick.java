@@ -8,6 +8,8 @@ package itm.comlang.teamassignment;
  *
  * @author gunu_zello
  */
-public class Stick {
-    
+public class Stick extends Weapon {
+    public Stick() {
+        super("Stick", 1);
+    }
 }
