@@ -19,7 +19,7 @@ public class Weapon {
         this.weaponDamage = weaponDamage;
     }
 
-    public Weapon createWeaponFromChar(char c) {
+    public static Weapon createWeaponFromChar(char c) {
         if (c == 'S') {
             return new Stick();
         } else if (c == 'W') {
@@ -35,7 +35,7 @@ public class Weapon {
         return this.weaponDamage;
     }
 
-    public String getWeapon() {
+    public String getWeaponName() {
         return this.weaponName;
     }
 
