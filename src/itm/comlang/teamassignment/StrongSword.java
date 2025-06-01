@@ -10,7 +10,8 @@ package itm.comlang.teamassignment;
  */
 public class StrongSword extends Weapon {
 
-    public StrongSword() {
-        super("Strong Sword", 3);
+    public StrongSword(int x, int y) {
+        super("Strong Sword", 5, x, y);
+
     }
 }

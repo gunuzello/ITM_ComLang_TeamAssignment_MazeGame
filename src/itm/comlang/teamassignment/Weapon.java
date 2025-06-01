@@ -10,26 +10,42 @@ package itm.comlang.teamassignment;
  */
 public class Weapon {
 
-    private String weaponName;
-    private int weaponDamage;
+    private String name;
+    private int damage;
+    private int x;
+    private int y;
 
-    protected Weapon(String weaponName, int weaponDamage) {
-
-        this.weaponName = weaponName;
-        this.weaponDamage = weaponDamage;
+    public Weapon(String name, int damage, int x, int y) {
+        this.name = name;
+        this.damage = damage;
+        this.x = x;
+        this.y = y;
     }
 
     public int getWeaponDamage() {
-        return this.weaponDamage;
+        return this.damage;
+
     }
 
-    public String getWeaponName() {
-        return this.weaponName;
+    public String getName() {
+        return name;
+    }
+
+    public int getDamage() {
+        return damage;
+
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     @Override
     public String toString() {
-        return weaponName + " (Damage: " + weaponDamage + ")";
+        return name + " (Damage: " + damage + ")";
     }
-
 }
