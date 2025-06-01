@@ -10,38 +10,36 @@ package itm.comlang.teamassignment;
  */
 public class Weapon {
 
-    private String weaponName;
-    private int weaponDamage;
+    private String name;
+    private int damage;
+    private int x;
+    private int y;
 
-    protected Weapon(String weaponName, int weaponDamage) {
-
-        this.weaponName = weaponName;
-        this.weaponDamage = weaponDamage;
+    public Weapon(String name, int damage, int x, int y) {
+        this.name = name;
+        this.damage = damage;
+        this.x = x;
+        this.y = y;
     }
 
-    public static Weapon createWeaponFromChar(char c) {
-        if (c == 'S') {
-            return new Stick();
-        } else if (c == 'W') {
-            return new WeakSword();
-        } else if (c == 'X') {
-            return new StrongSword();
-        } else {
-            return null;
-        }
+    public String getName() {
+        return name;
     }
 
-    public int getWeaponDamage() {
-        return this.weaponDamage;
+    public int getDamage() {
+        return damage;
     }
 
-    public String getWeaponName() {
-        return this.weaponName;
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     @Override
     public String toString() {
-        return weaponName + " (Damage: " + weaponDamage + ")";
+        return name + " (Damage: " + damage + ")";
     }
-
 }

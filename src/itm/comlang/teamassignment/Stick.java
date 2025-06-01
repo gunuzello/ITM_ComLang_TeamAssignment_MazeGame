@@ -9,7 +9,7 @@ package itm.comlang.teamassignment;
  * @author gunu_zello
  */
 public class Stick extends Weapon {
-    public Stick() {
-        super("Stick", 1);
+    public Stick(int x, int y) {
+        super("Stick", 1, x, y);
     }
 }

@@ -9,7 +9,7 @@ package itm.comlang.teamassignment;
  * @author gunu_zello
  */
 public class WeakSword extends Weapon {
-    public WeakSword() {
-        super("Weak Sword", 2);
+    public WeakSword(int x, int y) {
+        super("Weak Sword", 3, x, y);
     }
 }
