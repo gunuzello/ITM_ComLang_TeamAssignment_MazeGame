@@ -8,13 +8,13 @@ package itm.comlang.teamassignment;
  *
  * @author ohkyounghun
  */
-public abstract class Weapon {
+public class Weapon {
 
     private String weaponName;
     private int weaponDamage;
 
-  
     protected Weapon(String weaponName, int weaponDamage) {
+
         this.weaponName = weaponName;
         this.weaponDamage = weaponDamage;
     }
