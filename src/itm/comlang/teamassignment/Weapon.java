@@ -22,6 +22,18 @@ public abstract class Weapon {
         this.weaponDamage = weaponDamage;
     }
 
+    public Weapon createWeaponFromChar(char c) {
+        if (c == 'S') {
+            return new Stick();
+        } else if (c == 'W') {
+            return new WeakSword();
+        } else if (c == 'X') {
+            return new StrongSword();
+        } else {
+            return null;
+        }
+    }
+
     public int getWeaponDamage() {
         return this.weaponDamage;
     }
