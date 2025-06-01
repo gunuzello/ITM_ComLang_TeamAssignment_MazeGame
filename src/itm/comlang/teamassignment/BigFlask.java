@@ -15,13 +15,4 @@ public class BigFlask extends Potion {
 
     }
 
-    @Override
-    public String getPotionName() {
-        return "Big Flask"; // 어차피 고정된 값이니까.
-    }
-
-    @Override
-    public int getHealAmount() {
-        return 12; // 어차피 고정된 값이니까.
-    }
 }

@@ -15,13 +15,4 @@ public class MinorFlask extends Potion {
 
     }
 
-    @Override
-    public String getPotionName() {
-        return "Minor Flask"; // 어차피 고정된 값이니까.
-    }
-
-    @Override
-    public int getHealAmount() {
-        return 6; // 어차피 고정된 값이니까.
-    }
 }
