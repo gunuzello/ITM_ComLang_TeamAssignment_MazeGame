@@ -39,6 +39,8 @@ public class Room {
                     map[i][j] = divideCells.charAt(0);
 
                 }
+                // 맵이 로딩된 후 엔티티 자동 스캔
+                scanEntitiesFromMap();
             }
 
         } catch (Exception e) {
