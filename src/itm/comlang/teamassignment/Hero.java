@@ -27,8 +27,8 @@ public class Hero {
         return this.hp -= damage;
     }
 
-    public int heal(int portion) {
-        return this.hp += portion;
+    public int heal(int potion) {
+        return this.hp += potion;
     }
 
     public void equipWeapon(Weapon weapon) {
