@@ -13,9 +13,7 @@ public abstract class Weapon {
     private String weaponName;
     private int weaponDamage;
 
-    public Weapon() {
-
-    }
+    
 
     public Weapon(String weaponName, int weaponDamage) {
         this.weaponName = weaponName;
