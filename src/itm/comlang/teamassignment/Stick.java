@@ -6,17 +6,8 @@ package itm.comlang.teamassignment;
 
 /**
  *
- * @author ohkyounghun
+ * @author gunu_zello
  */
-public abstract class Weapon {
-    private String weaponName;
-    private int weaponDamage;
-    
-    public Weapon () {
-        
-    }
-    public String getWeapon () {
-        return this.weaponName;
-    }
+public class Stick {
     
 }
