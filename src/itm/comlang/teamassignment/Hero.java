@@ -62,8 +62,11 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
         } else {
             System.out.println("Invalid direction!");
         }
+        
+        /*
         this.x = newX;
-        this.y = newY;
+        this.y = newY; ==> 이동가능성을 먼저 체크하고 해야하므로 삭제(이대로 적용하면 움직이고 난 뒤에 이동가능성을 체크하므로 오류가 남)
+        */
 
         // 맵 범위 체크
         if (newX < 0 || newX >= map.length || newY < 0 || newY >= map[0].length) {
