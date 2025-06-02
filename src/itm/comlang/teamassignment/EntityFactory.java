@@ -9,7 +9,7 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 public class EntityFactory {
-
+//used polymorphism
     public static Object createEntityFromChar(char c, int x, int y) {
         if (c == 'S') {
             return new Stick(x, y);

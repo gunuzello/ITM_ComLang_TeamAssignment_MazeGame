@@ -39,10 +39,10 @@ public class Room {
                     map[i][j] = divideCells.charAt(0);
 
                 }
-                
+
             }
             // 맵이 로딩된 후 엔티티 자동 스캔
-                scanEntitiesFromMap();
+            scanEntitiesFromMap();
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -69,6 +69,19 @@ public class Room {
     }
 
     public void printRoom() {
+        // 1. 히어로 위치 확인
+        int[] heroLoc = findHeroLocation();
+
+        // 2. 없으면 랜덤한 위치에 배치
+        if (heroLoc == null) {
+            int[] randomLoc = findRandomEmptySpace();
+            if (randomLoc != null) {
+                map[randomLoc[0]][randomLoc[1]] = '@';
+                System.out.println("(자동으로 히어로를 빈 공간에 배치했습니다.)");
+            } else {
+                System.out.println("빈 공간이 없어 히어로를 배치할 수 없습니다.");
+            }
+        }
 
         System.out.print("+");
         for (int i = 0; i < cols; i++) {

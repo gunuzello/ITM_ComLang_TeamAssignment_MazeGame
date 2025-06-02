@@ -16,19 +16,22 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Room room1 = new Room("room1.csv");
-        Room room2 = new Room("room2.csv");
-        Room room3 = new Room("room3.csv");
-        Room room4 = new Room("room4.csv");
-        room1.printRoom();
-        room2.printRoom();
-        room3.printRoom();
-        room4.printRoom();
-        System.out.println(room1.getMonsters());
-        System.out.println(room1.getPotions());
-        System.out.println(room1.getWeapons());
-       
-        
+        ArrayList<Room> roomList = new ArrayList<>();
+        String[] filenames = {"room1.csv", "room2.csv", "room3.csv", "room4.csv"};
+
+        for (String file : filenames) {
+            roomList.add(new Room(file));
+        }
+
+        for (int i = 0; i < roomList.size(); i++) {
+            Room room = roomList.get(i);
+            System.out.println("== Room " + (i + 1) + " ==");
+            room.printRoom();
+            System.out.println("Monsters: " + room.getMonsters());
+            System.out.println("Potions: " + room.getPotions());
+            System.out.println("Weapons: " + room.getWeapons());
+            System.out.println();
+        }
 
     }
 
