@@ -10,9 +10,14 @@ package itm.comlang.teamassignment;
  */
 
 /* Goblin 클래스 - HP 3, Damage 1 */
-public class Goblin extends Monster {
+public class Goblin extends Monster implements Renderable {
 
     public Goblin(int x, int y, boolean keyHolder) {
         super("Goblin",x, y, 8, 2, keyHolder);
+    }
+    
+    @Override
+    public char getSymbol() {
+        return 'G';
     }
 }

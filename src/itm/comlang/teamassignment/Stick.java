@@ -8,8 +8,13 @@ package itm.comlang.teamassignment;
  *
  * @author gunu_zello
  */
-public class Stick extends Weapon {
+public class Stick extends Weapon implements Renderable {
     public Stick(int x, int y) {
         super("Stick", 1, x, y);
+    }
+    
+    @Override
+    public char getSymbol() {
+        return 'S';
     }
 }

@@ -8,7 +8,7 @@ package itm.comlang.teamassignment;
  *
  * @author ohkyounghun
  */
-public class Door {
+public class Door implements Renderable {
 
     private int x;
     private int y;
@@ -36,5 +36,10 @@ public class Door {
 
     public boolean isAtPosition(int heroX, int heroY) {
         return this.x == heroX && this.y == heroY;
+    }
+    
+    @Override
+    public char getSymbol() {
+        return 'd';
     }
 }

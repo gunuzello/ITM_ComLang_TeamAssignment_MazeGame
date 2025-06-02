@@ -10,9 +10,14 @@ package itm.comlang.teamassignment;
  */
 
 /* Orc 클래스 - HP 8, Damage 3 */
-public class Orc extends Monster {
+public class Orc extends Monster implements Renderable {
 
     public Orc(int x, int y, boolean keyHolder) {
         super("Orc", x, y, 12, 3, keyHolder);
+    }
+    
+    @Override
+    public char getSymbol() {
+        return 'O';
     }
 }

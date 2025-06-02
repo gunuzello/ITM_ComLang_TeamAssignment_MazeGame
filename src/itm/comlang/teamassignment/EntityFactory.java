@@ -11,7 +11,7 @@ package itm.comlang.teamassignment;
 public class EntityFactory {
 //used polymorphism
 
-    public static Object createEntityFromChar(char c, int x, int y) {
+    public static Renderable createEntityFromChar(char c, int x, int y) {
         if (c == 'S') {
             return new Stick(x, y);
         } else if (c == 'W') {

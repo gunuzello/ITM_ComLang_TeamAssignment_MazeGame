@@ -8,7 +8,7 @@ package itm.comlang.teamassignment;
  *
  * @author ohkyounghun
  */
-public class Hero {
+public class Hero implements Renderable {
 
     private int hp;
     private boolean hasKey;
@@ -150,6 +150,11 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
     public void setLocation(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+    
+    @Override
+    public char getSymbol() {
+        return '@';
     }
 
 }

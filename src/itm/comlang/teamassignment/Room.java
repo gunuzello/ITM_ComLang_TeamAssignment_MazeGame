@@ -57,7 +57,7 @@ public class Room {
             for (int j = 0; j < map[i].length; j++) {
                 char c = map[i][j];
 
-                Object obj = EntityFactory.createEntityFromChar(c, i, j);
+                Renderable obj = EntityFactory.createEntityFromChar(c, i, j);
 
                 if (obj instanceof Weapon) {
                     weapons.add((Weapon) obj);

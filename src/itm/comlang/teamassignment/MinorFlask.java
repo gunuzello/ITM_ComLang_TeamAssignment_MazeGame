@@ -8,9 +8,14 @@ package itm.comlang.teamassignment;
  *
  * @author ohkyounghun
  */
-public class MinorFlask extends Potion {
+public class MinorFlask extends Potion implements Renderable {
 
     public MinorFlask(int x, int y) {
         super("Minor Flask", 6, x, y);
+    }
+    
+    @Override
+    public char getSymbol() {
+        return 'm';
     }
 }

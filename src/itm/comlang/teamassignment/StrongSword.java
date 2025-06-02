@@ -8,10 +8,15 @@ package itm.comlang.teamassignment;
  *
  * @author gunu_zello
  */
-public class StrongSword extends Weapon {
+public class StrongSword extends Weapon implements Renderable {
 
     public StrongSword(int x, int y) {
         super("Strong Sword", 5, x, y);
 
+    }
+    
+    @Override
+    public char getSymbol() {
+        return 'X';
     }
 }
