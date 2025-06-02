@@ -18,11 +18,11 @@ public class Game {
     //히어로 위치 인식 및 객체 배치, 게임 시작시 초기세팅이다. 처음에 room1을 여는 것은 불변이므로 고정값으로 줌 
     public Game() {
         this.room = new Room("room1.csv"); // 고정값이니까 
-        int[] heroLocation = room.findHeroLocation();
+        int[] heroLocation = room.findHeroLocation(); //heroLocation 에다가 히어로를 찾는 메소드 사용해서 좌표값 집어넣음 
 
-        if (heroLocation != null) {
+        if (heroLocation != null) { //heroLocation에 값이 있을때는 그 좌표값으로 히어로를 지정함.(생성자가 좌표 뿐이니)
             this.hero = new Hero(heroLocation[0], heroLocation[1]);
-        } else {
+        } else { //히어로 위치가 지정되지 않으면 랜덤으로 뿌림
             int[] randomLoc = room.findRandomEmptySpace();
             this.hero = new Hero(randomLoc[0], randomLoc[1]);
         }
@@ -33,7 +33,7 @@ public class Game {
         Scanner sc = new Scanner(System.in);
         while (true) {
             room.printRoom(); // 현재 방 출력
-            System.out.println("Enter move (u/d/l/r): ");
+            System.out.println("Enter command (u/d/l/r to move, a to attack, q to quit): ");
             String direction = sc.nextLine();
             hero.move(direction, room.getMap());
             processCell();
