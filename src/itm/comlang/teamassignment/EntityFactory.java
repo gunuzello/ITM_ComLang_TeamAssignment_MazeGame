@@ -22,14 +22,26 @@ public class EntityFactory {
             return new MinorFlask(x, y);
         } else if (c == 'B') {
             return new BigFlask(x, y);
-        } else if (c == 'G') {
-            return new Goblin(x, y, false);
-        } else if (c == 'O') {
-            return new Orc(x, y, false);
-        } else if (c == 'T') {
-            return new Troll(x, y, true);  // 키 보유 몬스터
         } else {
             return null;
         }
+    }
+
+    public static Renderable createAdvancedEntity(String cell, int x, int y) {
+        if (cell.startsWith("G:")) {
+            int hp = Integer.valueOf(cell.split(":")[1]);
+            return new Goblin(x, y, hp, false);
+        } else if (cell.startsWith("O:")) {
+            int hp = Integer.valueOf(cell.split(":")[1]);
+            return new Orc(x, y, hp, false);
+        } else if (cell.startsWith("T:")) {
+            int hp = Integer.valueOf(cell.split(":")[1]);
+            return new Troll(x, y, hp, true);  // Troll은 항상 key 보유
+        } else if (cell.startsWith("d:") || cell.startsWith("D:")) {
+            boolean isFinal = cell.charAt(0) == 'D';
+            String filename = cell.split(":")[1];
+            return new Door(x, y, filename, isFinal);
+        }
+        return null;
     }
 }

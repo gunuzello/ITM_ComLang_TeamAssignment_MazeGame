@@ -13,13 +13,13 @@ public class Door implements Renderable {
     private int x;
     private int y;
     private String nextRoomFile;
-    private String doorType;
+    private boolean isFinal;
 
-    public Door(int x, int y, String nextRoomFile) {
+    public Door(int x, int y, String nextRoomFile, boolean isFinal) {
         this.x = x;
         this.y = y;
         this.nextRoomFile = nextRoomFile;
-        this.doorType = "smallDoor";
+        this.isFinal = isFinal;
     }
 
     public int getX() {
@@ -42,10 +42,21 @@ public class Door implements Renderable {
     
     @Override
     public char getSymbol() {
-        return 'd';
+        if (isFinal) {
+            return 'D';
+        } else {
+            return 'd';
+        }
     }
     
     public String getName() {
-        return this.doorType;
+        if (isFinal) {
+            return "Master Door";
+        } else {
+            return "Regular Door";
+        }
+    }
+    public String toString() {
+        return "There is " + this.getName();
     }
 }

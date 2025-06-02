@@ -4,13 +4,20 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/EntityFactory.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Room.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Door.java</file>
             <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Hero.java</file>
             <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Weapon.java</file>
-            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Potion.java</file>
             <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Monster.java</file>
-            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Room.java</file>
             <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Main.java</file>
-            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Door.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Stick.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/WeakSword.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/StrongSword.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/MinorFlask.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/BigFlask.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Goblin.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Orc.java</file>
+            <file>file:/Users/ohkyounghun/GitHub/ITM_ComLang_TeamAssignment_MazeGame/src/itm/comlang/teamassignment/Troll.java</file>
         </group>
     </open-files>
 </project-private>

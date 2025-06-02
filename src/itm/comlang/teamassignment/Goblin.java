@@ -12,7 +12,7 @@ package itm.comlang.teamassignment;
 /* Goblin 클래스 - HP 3, Damage 1 */
 public class Goblin extends Monster implements Renderable {
 
-    public Goblin(int x, int y, boolean keyHolder) {
+    public Goblin(int x, int y, int hp, boolean keyHolder) {
         super("Goblin",x, y, 8, 2, keyHolder);
     }
     

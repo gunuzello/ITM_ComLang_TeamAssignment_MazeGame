@@ -16,7 +16,8 @@ import java.util.Scanner;
  */
 public class Room {
 
-    private char[][] map;
+    private char[][] map; // 간단한 심벌을 가진 엔티티들을 위해 
+    private String[][] rawCells; // : 와 같이 스플릿을 해야하는 엔티티들을 위해
     private int rows;
     private int cols;
     // Room에 존재하는 게임 요소들을 저장할 리스트
@@ -29,6 +30,7 @@ public class Room {
             cols = Integer.valueOf(parts[1]);
 
             map = new char[rows][cols];
+            rawCells = new String[rows][cols];
 
             for (int i = 0; i < rows; i++) {
                 String line = scanner.nextLine();
@@ -36,6 +38,7 @@ public class Room {
                 for (int j = 0; j < cols; j++) {
                     String divideCells = cells[j];
                     map[i][j] = divideCells.charAt(0);
+                    rawCells[i][j] = divideCells;
 
                 }
 
@@ -53,10 +56,17 @@ public class Room {
     private void scanEntitiesFromMap() {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                char c = map[i][j];
+                String cell = rawCells[i][j];
+                Renderable entity;
 
-                Renderable entity = EntityFactory.createEntityFromChar(c, i, j);
+                if (cell.contains(":")) {
+                    entity = EntityFactory.createAdvancedEntity(cell, i, j);
+                } else {
+                    entity = EntityFactory.createEntityFromChar(cell.charAt(0), i, j);
+                }
+
                 if (entity != null) {
+                    map[i][j] = entity.getSymbol();
                     renderables.add(entity);
                 }
             }
