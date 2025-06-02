@@ -45,7 +45,7 @@ public class Hero implements Renderable {
         if (this.hp > 25) {
             this.hp = 25;
         }
-        
+
     }
 
     //히어로가 가진 웨폰을 다른 웨폰으로 교체 
@@ -113,6 +113,11 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
         }
     }
 
+    //히어로의 무기값 반환 
+    public Weapon getWeapon() {
+        return this.weapon;
+    }
+
     //히어로의 hp값 반환 
     public int getHP() {
         return this.hp;
@@ -151,7 +156,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
         this.x = x;
         this.y = y;
     }
-    
+
     @Override
     public char getSymbol() {
         return '@';
