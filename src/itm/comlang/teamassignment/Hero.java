@@ -23,14 +23,32 @@ public class Hero {
         this.hasKey = false;
     }
 
-    public int attack(int damage) {
-        return this.hp -= damage;
+    //지금 히어로가 가진 무기로 얼마만큼의 공격력을 가지는지 측정 
+    public int countDamage() {
+        if (this.weapon != null) {
+            return this.weapon.getDamage();
+        }
+        return 0;
     }
 
-    public int heal(int potion) {
-        return this.hp += potion;
+    //히어로가 받는 데미지 값을 받아서 실제로 hp가 깎이도록 설정 
+    public void takeDamage(int damage) {
+        this.hp -= damage;
+        if (this.hp < 0) {
+            this.hp = 0;
+        }
     }
 
+    //히어로가 힐을 받을때 최대 체력인 25를 넘지 않도록 설정(반환값 없음)
+    public void heal(int potion) {
+        this.hp += potion;
+        if (this.hp > 25) {
+            this.hp = 25;
+        }
+        
+    }
+
+    //히어로가 가진 웨폰을 다른 웨폰으로 교체 
     public void equipWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
@@ -62,12 +80,11 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
         } else {
             System.out.println("Invalid direction!");
         }
-        
+
         /*
         this.x = newX;
         this.y = newY; ==> 이동가능성을 먼저 체크하고 해야하므로 삭제(이대로 적용하면 움직이고 난 뒤에 이동가능성을 체크하므로 오류가 남)
-        */
-
+         */
         // 맵 범위 체크
         if (newX < 0 || newX >= map.length || newY < 0 || newY >= map[0].length) {
             System.out.println("You can't escape the map!");
@@ -88,22 +105,40 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
 
     }
 
+    public boolean isArmed() {
+        if (this.weapon != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //히어로의 hp값 반환 
+    public int getHP() {
+        return this.hp;
+    }
+
+    //히어로 위치의 x값 반환 
     public int getX() {
         return this.x;
     }
 
+    //히어로 위치의 y값 반환 
     public int getY() {
         return this.y;
     }
 
+    //히어로의 key보유 여부 확인 
     public boolean hasKey() {
         return this.hasKey;
     }
 
+    //히어로가 key를 가졌을때 hasKey 값을 변화시킴(반환값 없음)
     public void earnKey() {
         this.hasKey = true;
     }
 
+    //히어로의 생존여부 반환 
     public boolean isStillAlive() {
         if (this.hp > 0) {
             return true;
@@ -111,6 +146,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
         return false;
     }
 
+    //히어로의 위치값 초기화 
     public void setLocation(int x, int y) {
         this.x = x;
         this.y = y;

@@ -56,7 +56,7 @@ public class Monster {
     }
 
     public void attack(Hero hero) {
-        hero.attack(damage);
+        hero.takeDamage(damage);
     }
     public String toString() {
         return this.name + " (Damage: " + this.damage + " " + " HP: " + this.hp+ ")";

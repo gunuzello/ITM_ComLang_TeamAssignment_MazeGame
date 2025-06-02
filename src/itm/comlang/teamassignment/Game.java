@@ -38,7 +38,9 @@ public class Game {
             hero.move(direction, room.getMap());
             processCell();
             if (!hero.isStillAlive()) {
-                System.out.println("You have died!");
+                System.out.println("You die!");
+                break;
+            } else if(direction.equals("q")){
                 break;
             }
         }
