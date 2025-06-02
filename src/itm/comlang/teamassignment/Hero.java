@@ -81,6 +81,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
             newY++;
         } else {
             System.out.println("Invalid direction!");
+            return;
         }
 
         /*
@@ -100,10 +101,10 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
         }
 
         // 이전 위치를 비우고, 새 위치에 @ 표시
-        map[this.x][this.y] = ' ';
+        
         this.x = newX;
         this.y = newY;
-        map[this.x][this.y] = '@';
+        
 
     }
 

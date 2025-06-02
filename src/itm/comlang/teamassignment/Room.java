@@ -36,9 +36,9 @@ public class Room {
                 String line = scanner.nextLine();
                 String[] cells = line.split(",");
                 for (int j = 0; j < cols; j++) {
-                    String divideCells = cells[j];
-                    map[i][j] = divideCells.charAt(0);
-                    rawCells[i][j] = divideCells;
+                    
+                    map[i][j] = cells[j].charAt(0);
+                    rawCells[i][j] = cells[j];
 
                 }
 

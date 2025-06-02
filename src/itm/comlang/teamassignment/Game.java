@@ -33,6 +33,8 @@ public class Game {
     public void GameRunning() {
         while (true) {
             room.printRoom(); // 현재 방 출력
+            System.out.flush();
+            
             System.out.println("Enter command (u/d/l/r to move, a to attack, q to quit): ");
             String direction = sc.nextLine();
             hero.move(direction, room.getMap());
