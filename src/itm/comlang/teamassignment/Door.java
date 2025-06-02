@@ -13,11 +13,13 @@ public class Door implements Renderable {
     private int x;
     private int y;
     private String nextRoomFile;
+    private String doorType;
 
     public Door(int x, int y, String nextRoomFile) {
         this.x = x;
         this.y = y;
         this.nextRoomFile = nextRoomFile;
+        this.doorType = "smallDoor";
     }
 
     public int getX() {
@@ -41,5 +43,9 @@ public class Door implements Renderable {
     @Override
     public char getSymbol() {
         return 'd';
+    }
+    
+    public String getName() {
+        return this.doorType;
     }
 }

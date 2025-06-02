@@ -20,9 +20,7 @@ public class Room {
     private int rows;
     private int cols;
     // Room에 존재하는 게임 요소들을 저장할 리스트
-    private ArrayList<Weapon> weapons = new ArrayList<>();
-    private ArrayList<Potion> potions = new ArrayList<>();
-    private ArrayList<Monster> monsters = new ArrayList<>();
+    private ArrayList<Renderable> renderables = new ArrayList<>();
 
     public Room(String filePath) {
         try (Scanner scanner = new Scanner(Paths.get(filePath))) {
@@ -57,14 +55,9 @@ public class Room {
             for (int j = 0; j < map[i].length; j++) {
                 char c = map[i][j];
 
-                Renderable obj = EntityFactory.createEntityFromChar(c, i, j);
-
-                if (obj instanceof Weapon) {
-                    weapons.add((Weapon) obj);
-                } else if (obj instanceof Potion) {
-                    potions.add((Potion) obj);
-                } else if (obj instanceof Monster) {
-                    monsters.add((Monster) obj);
+                Renderable entity = EntityFactory.createEntityFromChar(c, i, j);
+                if (entity != null) {
+                    renderables.add(entity);
                 }
             }
         }
@@ -158,16 +151,8 @@ public class Room {
         }
     }
 
-    public ArrayList<Weapon> getWeapons() {
-        return weapons;
-    }
-
-    public ArrayList<Potion> getPotions() {
-        return potions;
-    }
-
-    public ArrayList<Monster> getMonsters() {
-        return monsters;
+    public ArrayList<Renderable> getRenderables() {
+        return renderables;
     }
 
     public char[][] getMap() {

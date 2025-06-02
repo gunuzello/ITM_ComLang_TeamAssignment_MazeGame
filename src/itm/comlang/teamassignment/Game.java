@@ -54,9 +54,9 @@ public class Game {
 
         // 무기 검색
         if (cell == 'S' || cell == 'W' || cell == 'X') {
-            for (Weapon w : room.getWeapons()) {
-                if (w.getX() == x && w.getY() == y) {
-                    System.out.println("Weapon found: " + w.getName());
+            for (Renderable r : room.getRenderables()) {
+                if (r.getX() == x && r.getY() == y) {
+                    System.out.println("Weapon found: " + r.getName());
                     // 이후 행동은 별도 메소드에서 처리
                     break;
                 }
@@ -65,9 +65,9 @@ public class Game {
 
         // 포션 검색
         if (cell == 'm' || cell == 'B') {
-            for (Potion p : room.getPotions()) {
-                if (p.getX() == x && p.getY() == y) {
-                    System.out.println("Potion found: " + p.getName());
+            for (Renderable r : room.getRenderables()) {
+                if (r.getX() == x && r.getY() == y) {
+                    System.out.println("Potion found: " + r.getName());
                     // 이후 행동은 별도 메소드에서 처리
                     break;
                 }
@@ -76,9 +76,9 @@ public class Game {
 
         // 몬스터 검색
         if (cell == 'G' || cell == 'O' || cell == 'T') {
-            for (Monster m : room.getMonsters()) {
-                if (m.getX() == x && m.getY() == y) {
-                    System.out.println("Monster found: " + m.getClass().getSimpleName()); //m이라는 Monster 객체의 클래스 이름을 문자열로 가져와라.
+            for (Renderable r : room.getRenderables()) {
+                if (r.getX() == x && r.getY() == y) {
+                    System.out.println("Monster found: " + r.getName());//m이라는 Monster 객체의 클래스 이름을 문자열로 가져와라.
                     // 이후 전투는 여기서 호출 가능
                     break;
                 }

@@ -15,12 +15,14 @@ public class Hero implements Renderable {
     private int x;
     private int y;
     private Weapon weapon;
+    private String name;
 
     public Hero(int x, int y) {
         this.hp = 25;
         this.x = x;
         this.y = y;
         this.hasKey = false;
+        this.name = "Hero";           
     }
 
     //지금 히어로가 가진 무기로 얼마만큼의 공격력을 가지는지 측정 
@@ -160,6 +162,10 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
     @Override
     public char getSymbol() {
         return '@';
+    }
+    
+    public String getName() {
+        return this.name;
     }
 
 }

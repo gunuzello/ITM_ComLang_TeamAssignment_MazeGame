@@ -9,7 +9,7 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 /*
-  추상 몬스터 클래스 - Goblin, Orc, Troll의 공통 기능 제공
+  몬스터 클래스 - Goblin, Orc, Troll의 공통 기능 제공
  */
 public class Monster {
     private String name;

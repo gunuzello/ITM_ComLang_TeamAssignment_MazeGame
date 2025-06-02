@@ -27,9 +27,8 @@ public class Main {
             Room room = roomList.get(i);
             System.out.println("== Room " + (i + 1) + " ==");
             room.printRoom();
-            System.out.println("Monsters: " + room.getMonsters());
-            System.out.println("Potions: " + room.getPotions());
-            System.out.println("Weapons: " + room.getWeapons());
+            System.out.println("Monsters: " + room.getRenderables());
+            
             System.out.println();
         }
 

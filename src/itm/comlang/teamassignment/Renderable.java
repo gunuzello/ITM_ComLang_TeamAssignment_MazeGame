@@ -9,5 +9,12 @@ package itm.comlang.teamassignment;
  * @author ohkyounghun
  */
 public interface Renderable {
+
     char getSymbol();
+
+    int getX();
+
+    int getY();
+    
+    String getName();
 }
