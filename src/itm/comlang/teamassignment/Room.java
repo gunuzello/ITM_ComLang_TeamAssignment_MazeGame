@@ -55,6 +55,7 @@ public class Room {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 char c = map[i][j];
+                
                 Object obj = EntityFactory.createEntityFromChar(c, i, j);
 
                 if (obj instanceof Weapon) {
@@ -76,7 +77,7 @@ public class Room {
         if (heroLoc == null) {
             int[] randomLoc = findRandomEmptySpace();
             if (randomLoc != null) {
-                map[randomLoc[0]][randomLoc[1]] = '@';
+                map[randomLoc[0]][randomLoc[1]] = '\u263A';
                 System.out.println("(자동으로 히어로를 빈 공간에 배치했습니다.)");
             } else {
                 System.out.println("빈 공간이 없어 히어로를 배치할 수 없습니다.");
