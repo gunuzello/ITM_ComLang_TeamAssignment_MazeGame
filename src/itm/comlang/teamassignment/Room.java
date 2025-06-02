@@ -4,6 +4,7 @@
  */
 package itm.comlang.teamassignment;
 
+import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
@@ -55,7 +56,7 @@ public class Room {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 char c = map[i][j];
-                
+
                 Object obj = EntityFactory.createEntityFromChar(c, i, j);
 
                 if (obj instanceof Weapon) {
@@ -134,6 +135,28 @@ public class Room {
         return emptyspace.get(random.nextInt(emptyspace.size())); // nextInt() 메서드는 랜덤으로 숫자를 뽑아주므로 , ()안에 배열 크기를 초과하는 
         // 불상사를 방지하기위해 .size()로 방지.
     }// 게임 로직에서 사용할 수 있도록 각 리스트 getter 제공
+
+    public void saveRoomToFile(String path) {
+        try (PrintWriter writer = new PrintWriter(path)) {
+            // 첫 줄에 행과 열 정보 저장
+            writer.println(rows + "," + cols);
+
+            // map 배열을 한 줄씩 저장
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    writer.print(map[i][j]);
+                    if (j < cols - 1) {
+                        writer.print(",");  // 마지막 열이 아닐 때만 쉼표 추가
+                    }
+                }
+                writer.println(); // 한 줄 끝나면 줄바꿈
+            }
+
+            System.out.println("Room state saved to: " + path);
+        } catch (Exception e) {
+            System.out.println("Error saving room: " + e.getMessage());
+        }
+    }
 
     public ArrayList<Weapon> getWeapons() {
         return weapons;
