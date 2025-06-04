@@ -122,6 +122,8 @@ public class Game {
                 if (!hero.isArmed()) {
                     hero.equipWeapon(weapon);
                     System.out.println("You equipped: " + weapon.getName());
+                    room.getRenderables().remove(r);
+                    room.getMap()[x][y] = ' ';
                 } else {
                     System.out.println("You found: " + weapon.getName());
                     System.out.println("You are currently holding: " + hero.getWeapon().getName());
@@ -131,6 +133,8 @@ public class Game {
                     if (answer.equals("y")) {
                         hero.equipWeapon(weapon);
                         System.out.println("Switched to: " + weapon.getName());
+                        room.getRenderables().remove(r);
+                        room.getMap()[x][y] = ' ';
                     } else {
                         System.out.println("Kept your current weapon.");
                     }
@@ -151,7 +155,8 @@ public class Game {
                     hero.heal(potion.getHealAmount());
                     System.out.println("You used: " + potion.getName());
                     System.out.println("HP restored to: " + hero.getHP());
-                    room.getRenderables().remove(r);  // 사용한 포션은 제거
+                    room.getRenderables().remove(r);
+                    room.getMap()[x][y] = ' ';// 사용한 포션은 제거
                 } else {
                     System.out.println("Your HP is full. Potion left on the ground.");
                 }
@@ -203,6 +208,7 @@ public class Game {
                         hero.earnKey();
                     }
                     room.getRenderables().remove(r);
+                    room.getMap()[x][y] = ' ';
                 }
                 break;
             }
