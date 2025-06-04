@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-
-
 /**
  *
  * @author ohkyounghun
@@ -19,20 +17,24 @@ public class Game {
     private Hero hero;
     private Room room;
     private Scanner sc = new Scanner(System.in);
-
+    private String copiedFolder;
+    private String currentRoomFileName;
+    
+    
     //히어로 위치 인식 및 객체 배치, 게임 시작시 초기세팅이다. 처음에 room1을 여는 것은 불변이므로 고정값으로 줌 
     public Game() {
         // 1. 복사 먼저 수행
-        String copiedFolder = RoomFileManager.copyRoomsToNewFolder("rooms");
+        this.copiedFolder = RoomFileManager.copyRoomsToNewFolder("rooms");
 
         // 2. 복사 실패 시 종료 처리 (혹시라도 에러났을 때)
         if (copiedFolder == null) {
-            System.out.println("게임 시작에 실패했습니다.");
+            System.out.println("Cannot start the Game.");
             return;
         }
 
         // 3. 복사된 폴더에서 room1.csv 로드
-        this.room = new Room(copiedFolder + "/room1.csv");
+        this.currentRoomFileName = "room1.csv";
+        this.room = new Room(copiedFolder + "/" + currentRoomFileName);
         int[] heroLocation = room.findHeroLocation(); //heroLocation 에다가 히어로를 찾는 메소드 사용해서 좌표값 집어넣음 
 
         if (heroLocation != null) {
@@ -118,8 +120,15 @@ public class Game {
                     }
                 } else {
                     System.out.println("Moving to next room: " + door.getNextRoomFile());
-                    // 새 room 불러오기
-                    this.room = new Room("rooms/" + door.getNextRoomFile());
+
+                    // 현재 방 상태 저장
+                    room.saveRoomToFile(copiedFolder + "/" + currentRoomFileName);
+                    System.out.println("Moving to next room: " + door.getNextRoomFile());
+                    
+                    
+                    // 새 방 로드
+                    this.currentRoomFileName = door.getNextRoomFile();
+                    this.room = new Room(copiedFolder + "/" + currentRoomFileName);
 
                     // 새 room에서 히어로 위치도 다시 설정
                     // 새 room에서 히어로 위치 설정 (handleDoor 안에 직접 작성 가능)

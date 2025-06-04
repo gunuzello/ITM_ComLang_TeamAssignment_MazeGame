@@ -21,9 +21,7 @@ public class Weapon {
         this.x = x;
         this.y = y;
     }
-    public Weapon(String name) {
-        this.name = name;
-    }
+    
 
     public int getWeaponDamage() {
         return this.damage;

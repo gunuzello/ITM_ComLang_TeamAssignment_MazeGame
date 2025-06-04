@@ -23,7 +23,7 @@ public class Hero implements Renderable {
         this.y = y;
         this.hasKey = false;
         this.name = "Hero";
-        this.weapon = new Weapon("None");
+        
     }
 
     //지금 히어로가 가진 무기로 얼마만큼의 공격력을 가지는지 측정 
