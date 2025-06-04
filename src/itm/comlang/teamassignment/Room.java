@@ -22,7 +22,6 @@ public class Room {
     private int cols;
     // Room에 존재하는 게임 요소들을 저장할 리스트
     private ArrayList<Renderable> renderables = new ArrayList<>();
-    private Hero hero;
 
     public Room(String filePath) {
         try (Scanner scanner = new Scanner(Paths.get(filePath))) {
@@ -64,17 +63,16 @@ public class Room {
                 } else if (cell.contains(":")) {
                     Renderable entity = EntityFactory.createAdvancedEntity(cell, i, j);
                     if (entity != null) {
-                       renderables.add(entity);
-                       map[i][j] = entity.getSymbol();
+                        renderables.add(entity);
+                        map[i][j] = entity.getSymbol();
                     }
                 } else {
                     Renderable entity = EntityFactory.createEntityFromChar(cell.charAt(0), i, j);
-                
 
-                if (entity != null) {
-                    map[i][j] = entity.getSymbol();
-                    renderables.add(entity);
-                }
+                    if (entity != null) {
+                        map[i][j] = entity.getSymbol();
+                        renderables.add(entity);
+                    }
                 }
             }
         }
@@ -178,7 +176,5 @@ public class Room {
     public int getCols() {
         return cols;
     }
-    public Hero getHero() {
-        return this.hero;
-    }
+
 }
