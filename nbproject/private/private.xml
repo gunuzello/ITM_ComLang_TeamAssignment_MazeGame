@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< Updated upstream
         <group/>
+=======
+        <group>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Game.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Hero.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Room.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Weapon.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Potion.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/BigFlask.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Troll.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Monster.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Main.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/EntityFactory.java</file>
+            <file>file:/Users/gunu_zello/Desktop/SeoulTech/2학년%201학기/Computer%20Language/Assignment/teamAssignment/src/itm/comlang/teamassignment/Door.java</file>
+        </group>
+>>>>>>> Stashed changes
     </open-files>
 </project-private>
