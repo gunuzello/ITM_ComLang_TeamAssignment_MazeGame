@@ -4,7 +4,11 @@
  */
 package itm.comlang.teamassignment;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
+
+
 
 /**
  *
@@ -18,7 +22,17 @@ public class Game {
 
     //히어로 위치 인식 및 객체 배치, 게임 시작시 초기세팅이다. 처음에 room1을 여는 것은 불변이므로 고정값으로 줌 
     public Game() {
-        this.room = new Room("rooms/room1.csv"); // 고정값이니까 
+        // 1. 복사 먼저 수행
+        String copiedFolder = RoomFileManager.copyRoomsToNewFolder("rooms");
+
+        // 2. 복사 실패 시 종료 처리 (혹시라도 에러났을 때)
+        if (copiedFolder == null) {
+            System.out.println("게임 시작에 실패했습니다.");
+            return;
+        }
+
+        // 3. 복사된 폴더에서 room1.csv 로드
+        this.room = new Room(copiedFolder + "/room1.csv");
         int[] heroLocation = room.findHeroLocation(); //heroLocation 에다가 히어로를 찾는 메소드 사용해서 좌표값 집어넣음 
 
         if (heroLocation != null) {
@@ -62,16 +76,7 @@ public class Game {
                 System.out.println("You die!");
                 break;
             }
-            /*
-            hero.move(direction, room.getMap());
-            processCell();
-            if (!hero.isStillAlive()) {
-                System.out.println("You die!");
-                break;
-            } else if (direction.equals("q")) {
-                break;
-            }
-             */
+
         }
     }
 
@@ -92,6 +97,63 @@ public class Game {
         }
 
         // 몬스터를 다루는 부분은 handleAttack으로 책임을 다 넘김. processCell은 오직 아이템만 관리 
+        // 문 검색
+        if (cell == 'd' || cell == 'D') {
+            handleDoor(x, y);
+        }
+
+    }
+
+    private void handleDoor(int x, int y) {
+        for (Renderable r : room.getRenderables()) {
+            if (r.getX() == x && r.getY() == y && r instanceof Door) {
+                Door door = (Door) r;
+
+                if (door.getSymbol() == 'D') {
+                    if (hero.hasKey()) {
+                        System.out.println("You used the key and escaped the dungeon!");
+                        System.exit(0);  // 게임 종료 (성공)
+                    } else {
+                        System.out.println("The master door is locked. You need the key.");
+                    }
+                } else {
+                    System.out.println("Moving to next room: " + door.getNextRoomFile());
+                    // 새 room 불러오기
+                    this.room = new Room("rooms/" + door.getNextRoomFile());
+
+                    // 새 room에서 히어로 위치도 다시 설정
+                    // 새 room에서 히어로 위치 설정 (handleDoor 안에 직접 작성 가능)
+                    int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+                    int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+                    ArrayList<int[]> emptySpots = new ArrayList<>();
+
+                    for (int i = 0; i < dx.length; i++) {
+                        int newX = door.getX() + dx[i];
+                        int newY = door.getY() + dy[i];
+
+                        // 맵 범위 확인
+                        if (newX >= 0 && newX < room.getRows() && newY >= 0 && newY < room.getCols()) {
+                            if (room.getMap()[newX][newY] == ' ') {
+                                emptySpots.add(new int[]{newX, newY});
+                            }
+                        }
+                    }
+
+                    if (!emptySpots.isEmpty()) {
+                        Random rand = new Random();
+                        int[] spawn = emptySpots.get(rand.nextInt(emptySpots.size()));
+                        this.hero = new Hero(spawn[0], spawn[1]);
+                    } else {
+                        // 인접 빈공간이 없을 때: 기존 랜덤 스폰 사용
+                        int[] randomLoc = room.findRandomEmptySpace();
+                        this.hero = new Hero(randomLoc[0], randomLoc[1]);
+                    }
+
+                }
+                break;
+            }
+        }
     }
 
     private void handleAttack() {
@@ -104,8 +166,22 @@ public class Game {
                 int my = r.getY();
 
                 // 인접 판별 : 좌/우/상/하만 확인
-                if ((hx == mx && (hy == my + 1 || hy == my - 1))
-                        || (hy == my && (hx == mx + 1 || hx == mx - 1))) {
+                if ((mx == hx - 1 && my == hy - 1)
+                        || // ↖
+                        (mx == hx - 1 && my == hy)
+                        || // ↑
+                        (mx == hx - 1 && my == hy + 1)
+                        || // ↗
+                        (mx == hx && my == hy - 1)
+                        || // ←
+                        (mx == hx && my == hy + 1)
+                        || // →
+                        (mx == hx + 1 && my == hy - 1)
+                        || // ↙
+                        (mx == hx + 1 && my == hy)
+                        || // ↓
+                        (mx == hx + 1 && my == hy + 1) // ↘
+                        ) {
                     handleMonster(mx, my);//있으면 맞다이 할 수 있음
                     return;
                 }

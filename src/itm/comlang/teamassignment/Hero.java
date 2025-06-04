@@ -85,15 +85,17 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
             return;
         }
 
-        char targetCell = map[newX][newY];
-        if (targetCell == 'G' || targetCell == 'O' || targetCell == 'T') {
-            System.out.println("There is a monster blocking the way!");
-            return;
-        }
+        
 
         // 맵 범위 체크
         if (newX < 0 || newX >= map.length || newY < 0 || newY >= map[0].length) {
             System.out.println("You can't escape the map!");
+            return;
+        }
+        
+        char targetCell = map[newX][newY];
+        if (targetCell == 'G' || targetCell == 'O' || targetCell == 'T') {
+            System.out.println("There is a monster blocking the way!");
             return;
         }
 
