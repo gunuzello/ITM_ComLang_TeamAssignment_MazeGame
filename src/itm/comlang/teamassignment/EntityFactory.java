@@ -28,6 +28,7 @@ public class EntityFactory {
     }
 
     public static Renderable createAdvancedEntity(String cell, int x, int y) {
+        cell = cell.trim();
         if (cell.startsWith("G:")) {
             int hp = Integer.valueOf(cell.split(":")[1]);
             return new Goblin(x, y, hp, false);
@@ -39,9 +40,10 @@ public class EntityFactory {
             return new Troll(x, y, hp, true);  // Troll은 항상 key 보유
         } else if (cell.startsWith("d:") || cell.startsWith("D:")) {
             boolean isFinal = cell.charAt(0) == 'D'; // cell.charAt(0) == 'D'이면 true 
-            String filename = cell.split(":")[1];
+            String filename = cell.split(":")[1].trim();
             return new Door(x, y, filename, isFinal);
         }
         return null;
+        
     }
 }

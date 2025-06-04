@@ -53,31 +53,32 @@ public class Room {
     }
 
     // 맵을 순회하면서 각 좌표의 문자를 기반으로 객체 생성 및 리스트 추가
-    private void scanEntitiesFromMap() {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                String cell = rawCells[i][j];
-                //Game이 직접 히어로를 관리하게 하기 위해 room은 히어로에 관한 정보를 저장하지 않음. 그래서 히어로 정보 얻는 부분 삭제.
-                if (cell.charAt(0) == '@') {
-                    map[i][j] = ' ';
-                } else if (cell.contains(":")) {
-                    Renderable entity = EntityFactory.createAdvancedEntity(cell, i, j);
-                    if (entity != null) {
-                        renderables.add(entity);
-                        map[i][j] = entity.getSymbol();
-                    }
-                } else {
-                    Renderable entity = EntityFactory.createEntityFromChar(cell.charAt(0), i, j);
+  private void scanEntitiesFromMap() {
+    for (int i = 0; i < map.length; i++) {
+        for (int j = 0; j < map[i].length; j++) {
+            String cell = rawCells[i][j].trim(); // 공백 제거 중요
+            Renderable entity = null;
 
-                    if (entity != null) {
-                        map[i][j] = entity.getSymbol();
-                        renderables.add(entity);
-                    }
-                }
+            if (cell.isEmpty()) {
+                map[i][j] = ' ';
+                continue;
+            }
+
+            if (cell.charAt(0) == '@') {
+                map[i][j] = ' ';  // 히어로는 Room이 아니라 Game에서 관리
+            } else if (cell.contains(":")) {
+                entity = EntityFactory.createAdvancedEntity(cell, i, j);
+            } else {
+                entity = EntityFactory.createEntityFromChar(cell.charAt(0), i, j);
+            }
+
+            if (entity != null) {
+                renderables.add(entity);
+                map[i][j] = entity.getSymbol();  // 이때만 심벌 덮어쓰기
             }
         }
     }
-
+}
     public void printRoom(Hero hero) {
         
         //1. 상단 뚜껑 만들기 
@@ -147,7 +148,7 @@ public class Room {
             // map 배열을 한 줄씩 저장
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
-                    writer.print(map[i][j]);
+                    writer.print(rawCells[i][j]);
                     if (j < cols - 1) {
                         writer.print(",");  // 마지막 열이 아닐 때만 쉼표 추가
                     }

@@ -19,8 +19,7 @@ public class Game {
     private Scanner sc = new Scanner(System.in);
     private String copiedFolder;
     private String currentRoomFileName;
-    
-    
+
     //히어로 위치 인식 및 객체 배치, 게임 시작시 초기세팅이다. 처음에 room1을 여는 것은 불변이므로 고정값으로 줌 
     public Game() {
         // 1. 복사 먼저 수행
@@ -110,6 +109,7 @@ public class Game {
         for (Renderable r : room.getRenderables()) {
             if (r.getX() == x && r.getY() == y && r instanceof Door) {
                 Door door = (Door) r;
+                System.out.println("DEBUG: Hero stepped on symbol: " + door.getSymbol() + ", next room file: " + door.getNextRoomFile());
 
                 if (door.getSymbol() == 'D') {
                     if (hero.hasKey()) {
@@ -124,8 +124,7 @@ public class Game {
                     // 현재 방 상태 저장
                     room.saveRoomToFile(copiedFolder + "/" + currentRoomFileName);
                     System.out.println("Moving to next room: " + door.getNextRoomFile());
-                    
-                    
+
                     // 새 방 로드
                     this.currentRoomFileName = door.getNextRoomFile();
                     this.room = new Room(copiedFolder + "/" + currentRoomFileName);
