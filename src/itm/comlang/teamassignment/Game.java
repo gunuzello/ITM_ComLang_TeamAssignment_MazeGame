@@ -18,7 +18,19 @@ public class Game {
 
     //히어로 위치 인식 및 객체 배치, 게임 시작시 초기세팅이다. 처음에 room1을 여는 것은 불변이므로 고정값으로 줌 
     public Game() {
-        this.room = new Room("room1.csv"); // 고정값이니까 
+        // 1. 파일 복사 먼저 수행
+        String copiedFolder = RoomFileManager.copyRoomsToNewFolder("rooms");
+
+        // 2. 복사 실패 시 종료 처리 (혹시라도 에러났을 때)
+        if (copiedFolder == null) {
+            System.out.println("Cannot start the Game.");
+            return;
+        }
+        // 3. 복사된 폴더에서 room1.csv 로드
+        this.room = new Room(copiedFolder + "/room1.csv");
+
+        //this.room = new Room("room1.csv"); // 그냥 원본파 일
+        
         int[] heroLocation = room.findHeroLocation(); //heroLocation 에다가 히어로를 찾는 메소드 사용해서 좌표값 집어넣음 
 
         if (heroLocation != null) {
