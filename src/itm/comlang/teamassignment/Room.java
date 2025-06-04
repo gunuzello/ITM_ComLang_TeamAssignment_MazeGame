@@ -92,9 +92,9 @@ public class Room {
             //3. 한 줄 단위로 히어로 위치 확인
             for (int j = 0; j < cols; j++) {
                 if (hero != null && i == hero.getX() && j == hero.getY()) {
-                    System.out.print('@');  // hero 현재 위치에서만 출력
+                    System.out.print("☺");  // hero 현재 위치에서만 출력
                 } else {
-                    System.out.print(map[i][j]);
+                    System.out.print(getSymbolForRendering(map[i][j]));
                 }
             }
             //4. 우측 벽 만들기(한 줄 단위로)(여기서 반복문 하나 끝남 다시 위로 올라가지)
@@ -180,4 +180,31 @@ public class Room {
         return cols;
     }
 
+    public static String getSymbolForRendering(char c) {
+        if (c == '@') {
+            return "☺";
+        } else if (c == 'S') {
+            return "/";
+        } else if (c == 'W') {
+            return "†";
+        } else if (c == 'X') {
+            return "⚔";
+        } else if (c == 'm') {
+            return "⚱";
+        } else if (c == 'B') {
+            return "⚱";
+        } else if (c == 'G') {
+            return "☠";
+        } else if (c == 'O') {
+            return "☢";
+        } else if (c == 'T') {
+            return "⚑";
+        } else if (c == 'd') {
+            return "⬓";
+        } else if (c == 'D') {
+            return "⛩";
+        } else {
+            return " ";
+        }
+    }
 }
