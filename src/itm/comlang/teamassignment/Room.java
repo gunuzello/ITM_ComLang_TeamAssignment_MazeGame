@@ -53,34 +53,32 @@ public class Room {
     }
 
     // 맵을 순회하면서 각 좌표의 문자를 기반으로 객체 생성 및 리스트 추가
-  private void scanEntitiesFromMap() {
-    for (int i = 0; i < map.length; i++) {
-        for (int j = 0; j < map[i].length; j++) {
-            String cell = rawCells[i][j].trim(); // 공백 제거 중요
-            Renderable entity = null;
+    private void scanEntitiesFromMap() {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                String cell = rawCells[i][j].trim(); // 공백 제거 중요
+                Renderable entity = null;
 
-            if (cell.isEmpty()) {
-                map[i][j] = ' ';
-                continue;
-            }
+                if (cell.isEmpty()) {
+                    map[i][j] = ' ';
+                    continue;
+                }
 
-            if (cell.charAt(0) == '@') {
-                map[i][j] = ' ';  // 히어로는 Room이 아니라 Game에서 관리
-            } else if (cell.contains(":")) {
+                if (cell.charAt(0) == '@') {
+                    map[i][j] = ' ';  // 히어로는 Room이 아니라 Game에서 관리
+                }
                 entity = EntityFactory.createAdvancedEntity(cell, i, j);
-            } else {
-                entity = EntityFactory.createEntityFromChar(cell.charAt(0), i, j);
-            }
 
-            if (entity != null) {
-                renderables.add(entity);
-                map[i][j] = entity.getSymbol();  // 이때만 심벌 덮어쓰기
+                if (entity != null) {
+                    renderables.add(entity);
+                    map[i][j] = entity.getSymbol();  // 이때만 심벌 덮어쓰기
+                }
             }
         }
     }
-}
+
     public void printRoom(Hero hero) {
-        
+
         //1. 상단 뚜껑 만들기 
         System.out.print("+");
         for (int i = 0; i < cols; i++) {
@@ -169,6 +167,7 @@ public class Room {
     public char[][] getMap() {
         return map;
     }
+
     public String[][] getRawCells() {
         return rawCells;
     }

@@ -11,34 +11,31 @@ package itm.comlang.teamassignment;
 public class EntityFactory {
 //used polymorphism
 
-    public static Renderable createEntityFromChar(char c, int x, int y) {
-        if (c == 'S') {
+
+    public static Renderable createAdvancedEntity(String c, int x, int y) {
+        c = c.trim();
+        if (c.contains("S")) {
             return new Stick(x, y);
-        } else if (c == 'W') {
+        } else if (c.contains("W")) {
             return new WeakSword(x, y);
-        } else if (c == 'X') {
+        } else if (c.contains("X")) {
             return new StrongSword(x, y);
-        } else if (c == 'm') {
+        } else if (c.equals("m")) {
             return new MinorFlask(x, y);
-        } else if (c == 'B') {
+        } else if (c.contains("B")) {
             return new BigFlask(x, y);
-        } else if (c == 'D') {
+        } else if (c.contains("D")) {
             return new Door(x, y, null, true);
-        } else if (c == 'G') {
+        } else if (c.contains("G")) {
             return new Goblin(x, y, 3, false);
-        } else if (c == 'O') {
+        } else if (c.contains("O")) {
             return new Orc(x, y, 8, false);
-        } else if (c == 'T') {
+        } else if (c.contains("T")) {
             return new Troll(x, y, 15, true);
         }
-        return null;
-    }
 
-    public static Renderable createAdvancedEntity(String cell, int x, int y) {
-        cell = cell.trim();
-
-        if (cell.startsWith("d:")) {
-            String filename = cell.split(":")[1].trim();
+        if (c.contains("d:")) {
+            String filename = c.split(":")[1].trim();
             return new Door(x, y, filename, false);
         }
         return null;
