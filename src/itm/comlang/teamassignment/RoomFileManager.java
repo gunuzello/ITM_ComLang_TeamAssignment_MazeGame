@@ -21,8 +21,6 @@ package itm.comlang.teamassignment;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class RoomFileManager {
 
@@ -35,11 +33,11 @@ public class RoomFileManager {
      * @return 복사된 새 폴더 경로 (예: "game_runs/run_20250604_174500"), 실패 시 null
      */
     public static String copyRoomsToNewFolder(String sourceFolder) {
-        // 1. 현재 시간 기반 고유한 폴더 이름 만들기 (예: run_20250604_174012)
-        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        // 1. 폴더 이름 만들
+        String folderName = "CopyRooms";
 
         // 2. 최종 복사될 폴더 경로 지정
-        Path destFolder = Paths.get("game_runs/run_" + timestamp);
+        Path destFolder = Paths.get("game_runs/run_" + folderName);
 
         try {
             // 3. 복사될 폴더가 없으면 자동 생성
@@ -48,7 +46,7 @@ public class RoomFileManager {
             // 4. 원본 폴더에서 .csv 파일만 선택
             DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(sourceFolder), "*.csv");
 
-            // 5. 각 .csv 파일을 새 폴더로 복사
+            // 5. 각 .csv 파일을 새기 폴더로 복사
             for (Path file : stream) {
                 Path dest = destFolder.resolve(file.getFileName()); // 복사 대상 경로
                 Files.copy(file, dest, StandardCopyOption.REPLACE_EXISTING); // 파일 복사 수행
