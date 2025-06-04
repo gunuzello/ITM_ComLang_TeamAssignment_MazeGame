@@ -169,11 +169,14 @@ public class Game {
                     if (!emptySpots.isEmpty()) {
                         Random rand = new Random();
                         int[] spawn = emptySpots.get(rand.nextInt(emptySpots.size()));
-                        this.hero = new Hero(spawn[0], spawn[1]);
+                        hero.setX(spawn[0]);
+                        hero.setY(spawn[1]);
+
                     } else {
                         // 주변 빈 공간 없으면 전체 랜덤
                         int[] randomLoc = room.findRandomEmptySpace();
-                        this.hero = new Hero(randomLoc[0], randomLoc[1]);
+                        hero.setX(randomLoc[0]);
+                        hero.setY(randomLoc[1]);
                     }
 
                 }
@@ -218,6 +221,9 @@ public class Game {
 
     //웨폰 만났을때 행동 메소드
     private void handleWeapon(int x, int y) {
+
+        Renderable target = null;  // 삭제할 무기를 임시로 기억
+
         for (Renderable r : room.getRenderables()) {
             if (r.getX() == x && r.getY() == y && r instanceof Weapon) {
                 Weapon weapon = (Weapon) r;
@@ -225,9 +231,7 @@ public class Game {
                 if (!hero.isArmed()) {
                     hero.equipWeapon(weapon);
                     System.out.println("You equipped: " + weapon.getName());
-                    room.getRenderables().remove(r);
-                    room.getMap()[x][y] = ' ';
-                    room.getRawCells()[x][y] = " ";
+                    target = r;
                 } else {
                     System.out.println("You found: " + weapon.getName());
                     System.out.println("You are currently holding: " + hero.getWeapon().getName());
@@ -237,15 +241,19 @@ public class Game {
                     if (answer.equals("y")) {
                         hero.equipWeapon(weapon);
                         System.out.println("Switched to: " + weapon.getName());
-                        room.getRenderables().remove(r);
-                        room.getMap()[x][y] = ' ';
-                        room.getRawCells()[x][y] = " ";
+                        target = r;
                     } else {
                         System.out.println("Kept your current weapon.");
                     }
                 }
                 break;
             }
+        }
+        // for문 끝나고 안전하게 remove!
+        if (target != null) {
+            room.getRenderables().remove(target);
+            room.getMap()[x][y] = ' ';
+            room.getRawCells()[x][y] = " ";
         }
     }
 
