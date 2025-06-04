@@ -22,28 +22,26 @@ public class EntityFactory {
             return new MinorFlask(x, y);
         } else if (c == 'B') {
             return new BigFlask(x, y);
-        } else {
-            return null;
+        } else if (c == 'D') {
+            return new Door(x, y, null, true);
+        } else if (c == 'G') {
+            return new Goblin(x, y, 3, false);
+        } else if (c == 'O') {
+            return new Orc(x, y, 8, false);
+        } else if (c == 'T') {
+            return new Troll(x, y, 15, true);
         }
+        return null;
     }
 
     public static Renderable createAdvancedEntity(String cell, int x, int y) {
         cell = cell.trim();
-        if (cell.startsWith("G:")) {
-            int hp = Integer.valueOf(cell.split(":")[1]);
-            return new Goblin(x, y, hp, false);
-        } else if (cell.startsWith("O:")) {
-            int hp = Integer.valueOf(cell.split(":")[1]);
-            return new Orc(x, y, hp, false);
-        } else if (cell.startsWith("T:")) {
-            int hp = Integer.valueOf(cell.split(":")[1]);
-            return new Troll(x, y, hp, true);  // Troll은 항상 key 보유
-        } else if (cell.startsWith("d:") || cell.startsWith("D:")) {
-            boolean isFinal = cell.charAt(0) == 'D'; // cell.charAt(0) == 'D'이면 true 
+
+        if (cell.startsWith("d:")) {
             String filename = cell.split(":")[1].trim();
-            return new Door(x, y, filename, isFinal);
+            return new Door(x, y, filename, false);
         }
         return null;
-        
+
     }
 }

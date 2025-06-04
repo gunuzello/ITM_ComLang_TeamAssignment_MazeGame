@@ -13,7 +13,7 @@ package itm.comlang.teamassignment;
 public class Goblin extends Monster implements Renderable {
 
     public Goblin(int x, int y, int hp, boolean keyHolder) {
-        super("Goblin",x, y, 8, 2, keyHolder);
+        super("Goblin",x, y, hp, 1, keyHolder);
     }
     
     @Override

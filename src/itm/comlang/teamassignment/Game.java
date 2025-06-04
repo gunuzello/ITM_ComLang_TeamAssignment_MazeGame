@@ -109,7 +109,6 @@ public class Game {
         for (Renderable r : room.getRenderables()) {
             if (r.getX() == x && r.getY() == y && r instanceof Door) {
                 Door door = (Door) r;
-                System.out.println("DEBUG: Hero stepped on symbol: " + door.getSymbol() + ", next room file: " + door.getNextRoomFile());
 
                 if (door.getSymbol() == 'D') {
                     if (hero.hasKey()) {
