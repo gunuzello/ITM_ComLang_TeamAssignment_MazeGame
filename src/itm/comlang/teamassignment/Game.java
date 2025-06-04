@@ -209,6 +209,7 @@ public class Game {
                     System.out.println("You equipped: " + weapon.getName());
                     room.getRenderables().remove(r);
                     room.getMap()[x][y] = ' ';
+                    room.getRawCells()[x][y] = " ";
                 } else {
                     System.out.println("You found: " + weapon.getName());
                     System.out.println("You are currently holding: " + hero.getWeapon().getName());
@@ -220,6 +221,7 @@ public class Game {
                         System.out.println("Switched to: " + weapon.getName());
                         room.getRenderables().remove(r);
                         room.getMap()[x][y] = ' ';
+                        room.getRawCells()[x][y] = " ";
                     } else {
                         System.out.println("Kept your current weapon.");
                     }
@@ -242,6 +244,7 @@ public class Game {
                     System.out.println("HP restored to: " + hero.getHP());
                     room.getRenderables().remove(r);
                     room.getMap()[x][y] = ' ';// 사용한 포션은 제거
+                    room.getRawCells()[x][y] = " ";
                 } else {
                     System.out.println("Your HP is full. Potion left on the ground.");
                 }
@@ -294,6 +297,7 @@ public class Game {
                     }
                     room.getRenderables().remove(r);
                     room.getMap()[x][y] = ' ';
+                    room.getRawCells()[x][y] = " ";
                 }
                 break;
             }

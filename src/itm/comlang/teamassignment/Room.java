@@ -169,6 +169,9 @@ public class Room {
     public char[][] getMap() {
         return map;
     }
+    public String[][] getRawCells() {
+        return rawCells;
+    }
 
     public int getRows() {
         return rows;
