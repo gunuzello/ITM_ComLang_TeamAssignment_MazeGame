@@ -22,6 +22,7 @@ public class Room {
     private int cols;
     // Room에 존재하는 게임 요소들을 저장할 리스트
     private ArrayList<Renderable> renderables = new ArrayList<>();
+    private Hero hero;
 
     public Room(String filePath) {
         try (Scanner scanner = new Scanner(Paths.get(filePath))) {
@@ -57,24 +58,31 @@ public class Room {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 String cell = rawCells[i][j];
-                Renderable entity;
-
-                if (cell.contains(":")) {
-                    entity = EntityFactory.createAdvancedEntity(cell, i, j);
+                if (cell.charAt(0) == '@') {
+                    hero = new Hero(i, j);
+                    renderables.add(hero);
+                    map[i][j] = ' ';
+                } else if (cell.contains(":")) {
+                    Renderable entity = EntityFactory.createAdvancedEntity(cell, i, j);
+                    if (entity != null) {
+                       renderables.add(entity);
+                       map[i][j] = entity.getSymbol();
+                    }
                 } else {
-                    entity = EntityFactory.createEntityFromChar(cell.charAt(0), i, j);
-                }
+                    Renderable entity = EntityFactory.createEntityFromChar(cell.charAt(0), i, j);
+                
 
                 if (entity != null) {
                     map[i][j] = entity.getSymbol();
                     renderables.add(entity);
                 }
+                }
             }
         }
     }
 
-    public void printRoom(Hero hero) {
-        
+    public void printRoom() {
+
         //1. 상단 뚜껑 만들기 
         System.out.print("+");
         for (int i = 0; i < cols; i++) {
@@ -87,7 +95,7 @@ public class Room {
             System.out.print("|");
             //3. 한 줄 단위로 히어로 위치 확인
             for (int j = 0; j < cols; j++) {
-                if (i == hero.getX() && j == hero.getY()) {
+                if (hero != null && i == hero.getX() && j == hero.getY()) {
                     System.out.print('@');  // hero 현재 위치에서만 출력
                 } else {
                     System.out.print(map[i][j]);
@@ -97,7 +105,7 @@ public class Room {
             System.out.println("|");
         }
 
-        //5. 하단 뚜껑 만들기
+        //5. 하단 뚜껑 만들
         System.out.print("+");
         for (int i = 0; i < cols; i++) {
             System.out.print("-");
@@ -170,5 +178,8 @@ public class Room {
 
     public int getCols() {
         return cols;
+    }
+    public Hero getHero() {
+        return this.hero;
     }
 }
