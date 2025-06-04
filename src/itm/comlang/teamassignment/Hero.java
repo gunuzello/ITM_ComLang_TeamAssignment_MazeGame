@@ -94,11 +94,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
             return;
         }
 
-        // 빈 공간만 이동 허용
-        if (map[newX][newY] != ' ') {
-            System.out.println("You can't move there!");
-            return;
-        }
+        
 
         // 이전 위치를 비우고, 새 위치에 @ 표시
         
