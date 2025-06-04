@@ -21,11 +21,19 @@ public class Game {
         this.room = new Room("room1.csv"); // 고정값이니까 
         int[] heroLocation = room.findHeroLocation(); //heroLocation 에다가 히어로를 찾는 메소드 사용해서 좌표값 집어넣음 
 
-        if (heroLocation != null) { //heroLocation에 값이 있을때는 그 좌표값으로 히어로를 지정함.(생성자가 좌표 뿐이니)
+        if (heroLocation != null) {
+            // case 1: @가 있으면 거기로 생성
             this.hero = new Hero(heroLocation[0], heroLocation[1]);
-        } else { //히어로 위치가 지정되지 않으면 랜덤으로 뿌림
-            int[] randomLoc = room.findRandomEmptySpace();
-            this.hero = new Hero(randomLoc[0], randomLoc[1]);
+        } else {
+            // case 2: @가 없을 때
+            // 먼저 (1,1) 시도
+            if (room.getMap()[1][1] == ' ') {
+                this.hero = new Hero(1, 1);
+            } else {
+                // (1,1)에도 못 놓으면 → 랜덤 빈칸
+                int[] randomLoc = room.findRandomEmptySpace();
+                this.hero = new Hero(randomLoc[0], randomLoc[1]);
+            }
         }
     }
 
@@ -33,10 +41,26 @@ public class Game {
     public void GameRunning() {
         while (true) {
             room.printRoom(this.hero); // 현재 방 출력
-            
-            
+
             System.out.println("Enter command (u/d/l/r to move, a to attack, q to quit): ");
-            String direction = sc.nextLine();
+            String command = sc.nextLine();
+
+            //q누르면 움직이지 않고 종료해버리면 되니까 가장 먼저 배치 
+            if (command.equals("q")) {
+                break;
+            }
+
+            if (command.equals("a")) {
+                handleAttack();  // 새로 추가되는 메소드
+            } else {
+                hero.move(command, room.getMap());
+                processCell();
+            }
+            if (!hero.isStillAlive()) {
+                System.out.println("You die!");
+                break;
+            }
+            /*
             hero.move(direction, room.getMap());
             processCell();
             if (!hero.isStillAlive()) {
@@ -45,6 +69,7 @@ public class Game {
             } else if (direction.equals("q")) {
                 break;
             }
+             */
         }
     }
 
@@ -64,10 +89,27 @@ public class Game {
             handlePotion(x, y);
         }
 
-        // 몬스터 검색
-        if (cell == 'G' || cell == 'O' || cell == 'T') {
-            handleMonster(x, y);
+        // 몬스터를 다루는 부분은 handleAttack으로 책임을 다 넘김. processCell은 오직 아이템만 관리 
+    }
+
+    private void handleAttack() {
+        int hx = hero.getX();
+        int hy = hero.getY();
+
+        for (Renderable r : room.getRenderables()) {
+            if (r instanceof Monster) {
+                int mx = r.getX();
+                int my = r.getY();
+
+                // 인접 판별 : 좌/우/상/하만 확인
+                if ((hx == mx && (hy == my + 1 || hy == my - 1))
+                        || (hy == my && (hx == mx + 1 || hx == mx - 1))) {
+                    handleMonster(mx, my);//있으면 맞다이 할 수 있음
+                    return;
+                }
+            }
         }
+        System.out.println("No monster nearby to attack.");
     }
 
     //웨폰 만났을때 행동 메소드

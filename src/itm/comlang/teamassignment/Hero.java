@@ -22,7 +22,7 @@ public class Hero implements Renderable {
         this.x = x;
         this.y = y;
         this.hasKey = false;
-        this.name = "Hero";           
+        this.name = "Hero";
     }
 
     //지금 히어로가 가진 무기로 얼마만큼의 공격력을 가지는지 측정 
@@ -84,20 +84,21 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
             return;
         }
 
-        
+        char targetCell = map[newX][newY];
+        if (targetCell == 'G' || targetCell == 'O' || targetCell == 'T') {
+            System.out.println("There is a monster blocking the way!");
+            return;
+        }
+
         // 맵 범위 체크
         if (newX < 0 || newX >= map.length || newY < 0 || newY >= map[0].length) {
             System.out.println("You can't escape the map!");
             return;
         }
 
-        
-
         // 이전 위치를 비우고, 새 위치에 @ 표시
-        
         this.x = newX;
         this.y = newY;
-        
 
     }
 
@@ -157,7 +158,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
     public char getSymbol() {
         return '@';
     }
-    
+
     public String getName() {
         return this.name;
     }
