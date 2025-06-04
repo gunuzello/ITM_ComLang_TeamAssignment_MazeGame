@@ -23,6 +23,7 @@ public class Hero implements Renderable {
         this.y = y;
         this.hasKey = false;
         this.name = "Hero";
+        this.weapon = new Weapon("None");
     }
 
     //지금 히어로가 가진 무기로 얼마만큼의 공격력을 가지는지 측정 
@@ -138,6 +139,13 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
     //히어로가 key를 가졌을때 hasKey 값을 변화시킴(반환값 없음)
     public void earnKey() {
         this.hasKey = true;
+    }
+    public String getKeyStatus() {
+        if (this.hasKey) {
+            return "Yes";
+        }
+        return "No";
+        
     }
 
     //히어로의 생존여부 반환 

@@ -21,6 +21,9 @@ public class Weapon {
         this.x = x;
         this.y = y;
     }
+    public Weapon(String name) {
+        this.name = name;
+    }
 
     public int getWeaponDamage() {
         return this.damage;
@@ -46,6 +49,9 @@ public class Weapon {
 
     @Override
     public String toString() {
+        if(this.name.equals("None")) {
+            return name;
+        }
         return name + " (Damage: " + damage + ")";
     }
 }

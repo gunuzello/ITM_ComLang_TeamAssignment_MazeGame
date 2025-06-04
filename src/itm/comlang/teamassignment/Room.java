@@ -79,7 +79,7 @@ public class Room {
     }
 
     public void printRoom(Hero hero) {
-
+        
         //1. 상단 뚜껑 만들기 
         System.out.print("+");
         for (int i = 0; i < cols; i++) {
