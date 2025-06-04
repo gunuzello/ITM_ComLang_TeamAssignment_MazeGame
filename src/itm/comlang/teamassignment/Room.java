@@ -36,7 +36,7 @@ public class Room {
                 String line = scanner.nextLine();
                 String[] cells = line.split(",");
                 for (int j = 0; j < cols; j++) {
-                    
+
                     map[i][j] = cells[j].charAt(0);
                     rawCells[i][j] = cells[j];
 
@@ -73,43 +73,36 @@ public class Room {
         }
     }
 
-    public void printRoom() {
-        // 1. 히어로 위치 확인
-        int[] heroLoc = findHeroLocation();
-
-        // 2. 없으면 랜덤한 위치에 배치
-        if (heroLoc == null) {
-            int[] randomLoc = findRandomEmptySpace();
-            if (randomLoc != null) {
-                map[randomLoc[0]][randomLoc[1]] = '@';
-                Hero hero = new Hero(randomLoc[0], randomLoc[1]);
-                renderables.add(hero);
-                System.out.println("(자동으로 히어로를 빈 공간에 배치했습니다.)");
-            } else {
-                System.out.println("빈 공간이 없어 히어로를 배치할 수 없습니다.");
-            }
-        }
-
+    public void printRoom(Hero hero) {
+        
+        //1. 상단 뚜껑 만들기 
         System.out.print("+");
         for (int i = 0; i < cols; i++) {
             System.out.print("-");
         }
         System.out.println("+");
 
+        //2.좌측 벽 만들기(한 줄 단위로)(이거 반복문 돌림)
         for (int i = 0; i < rows; i++) {
             System.out.print("|");
+            //3. 한 줄 단위로 히어로 위치 확인
             for (int j = 0; j < cols; j++) {
-                System.out.print(map[i][j]);
+                if (i == hero.getX() && j == hero.getY()) {
+                    System.out.print('@');  // hero 현재 위치에서만 출력
+                } else {
+                    System.out.print(map[i][j]);
+                }
             }
+            //4. 우측 벽 만들기(한 줄 단위로)(여기서 반복문 하나 끝남 다시 위로 올라가지)
             System.out.println("|");
         }
 
+        //5. 하단 뚜껑 만들기
         System.out.print("+");
         for (int i = 0; i < cols; i++) {
             System.out.print("-");
         }
         System.out.println("+");
-
     }
 
     public int[] findHeroLocation() {
