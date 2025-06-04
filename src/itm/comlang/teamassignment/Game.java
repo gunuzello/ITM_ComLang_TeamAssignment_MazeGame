@@ -188,6 +188,7 @@ public class Game {
         int hx = hero.getX();
         int hy = hero.getY();
 
+        
         for (Renderable r : room.getRenderables()) {
             if (r instanceof Monster) {
                 int mx = r.getX();
