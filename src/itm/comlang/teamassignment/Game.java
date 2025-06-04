@@ -32,7 +32,7 @@ public class Game {
     // 게임 구동을 위한 메인 루프, 사실상 이 메소드를 메인클래스에서 구동함
     public void GameRunning() {
         while (true) {
-            room.printRoom(); // 현재 방 출력
+            room.printRoom(this.hero); // 현재 방 출력
             
             
             System.out.println("Enter command (u/d/l/r to move, a to attack, q to quit): ");

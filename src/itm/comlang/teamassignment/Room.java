@@ -58,9 +58,8 @@ public class Room {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 String cell = rawCells[i][j];
+                //Game이 직접 히어로를 관리하게 하기 위해 room은 히어로에 관한 정보를 저장하지 않음. 그래서 히어로 정보 얻는 부분 삭제.
                 if (cell.charAt(0) == '@') {
-                    hero = new Hero(i, j);
-                    renderables.add(hero);
                     map[i][j] = ' ';
                 } else if (cell.contains(":")) {
                     Renderable entity = EntityFactory.createAdvancedEntity(cell, i, j);
@@ -81,7 +80,7 @@ public class Room {
         }
     }
 
-    public void printRoom() {
+    public void printRoom(Hero hero) {
 
         //1. 상단 뚜껑 만들기 
         System.out.print("+");
