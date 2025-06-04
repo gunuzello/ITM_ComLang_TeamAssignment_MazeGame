@@ -126,23 +126,41 @@ public class Game {
                     System.out.println("Moving to next room: " + door.getNextRoomFile());
 
                     // 새 방 로드
+                    String previousRoomFileName = currentRoomFileName;
                     this.currentRoomFileName = door.getNextRoomFile();
                     this.room = new Room(copiedFolder + "/" + currentRoomFileName);
 
                     // 새 room에서 히어로 위치도 다시 설정
                     // 새 room에서 히어로 위치 설정 (handleDoor 안에 직접 작성 가능)
+                    int doorX = -1, doorY = -1;
+                    for (Renderable nextR : room.getRenderables()) {
+                        if (nextR instanceof Door) {
+                            Door nextDoor = (Door) nextR;
+                            if (nextDoor.getNextRoomFile().equals(previousRoomFileName)) {
+                                doorX = nextDoor.getX();
+                                doorY = nextDoor.getY();
+                                break;
+                            }
+                        }
+                    }
+
+                    if (doorX == -1) {
+                        System.out.println("ERROR: Cannot find return door in the next room.");
+                        System.exit(1);
+                    }
+
+                    // 8방향 랜덤 스폰 (벽 뚫지 않기)
                     int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
                     int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 
                     ArrayList<int[]> emptySpots = new ArrayList<>();
-
                     for (int i = 0; i < dx.length; i++) {
-                        int newX = door.getX() + dx[i];
-                        int newY = door.getY() + dy[i];
+                        int newX = doorX + dx[i];
+                        int newY = doorY + dy[i];
 
-                        // 맵 범위 확인
                         if (newX >= 0 && newX < room.getRows() && newY >= 0 && newY < room.getCols()) {
-                            if (room.getMap()[newX][newY] == ' ') {
+                            char targetCell = room.getMap()[newX][newY];
+                            if (targetCell == ' ') {  // 빈 공간일 때만 허용
                                 emptySpots.add(new int[]{newX, newY});
                             }
                         }
@@ -153,7 +171,7 @@ public class Game {
                         int[] spawn = emptySpots.get(rand.nextInt(emptySpots.size()));
                         this.hero = new Hero(spawn[0], spawn[1]);
                     } else {
-                        // 인접 빈공간이 없을 때: 기존 랜덤 스폰 사용
+                        // 주변 빈 공간 없으면 전체 랜덤
                         int[] randomLoc = room.findRandomEmptySpace();
                         this.hero = new Hero(randomLoc[0], randomLoc[1]);
                     }
