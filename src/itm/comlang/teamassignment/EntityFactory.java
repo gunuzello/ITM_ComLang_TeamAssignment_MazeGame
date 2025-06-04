@@ -22,10 +22,7 @@ public class EntityFactory {
             return new MinorFlask(x, y);
         } else if (c == 'B') {
             return new BigFlask(x, y);
-        } else if (c == '@') {
-            return new Hero(x, y);
-        }
-        {
+        } else {
             return null;
         }
     }
