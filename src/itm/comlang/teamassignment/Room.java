@@ -81,7 +81,9 @@ public class Room {
         if (heroLoc == null) {
             int[] randomLoc = findRandomEmptySpace();
             if (randomLoc != null) {
-                map[randomLoc[0]][randomLoc[1]] = '\u263A';
+                map[randomLoc[0]][randomLoc[1]] = '@';
+                Hero hero = new Hero(randomLoc[0], randomLoc[1]);
+                renderables.add(hero);
                 System.out.println("(자동으로 히어로를 빈 공간에 배치했습니다.)");
             } else {
                 System.out.println("빈 공간이 없어 히어로를 배치할 수 없습니다.");
