@@ -106,11 +106,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
     }
 
     public boolean isArmed() {
-        if (this.weapon != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.weapon != null;
     }
 
     //히어로의 무기값 반환 
@@ -171,6 +167,12 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
 
     public String getName() {
         return this.name;
+    }
+    public void setX(int x) {
+        this.x = x;
+    }
+    public void setY(int y) {
+        this.y = y;
     }
 
 }
