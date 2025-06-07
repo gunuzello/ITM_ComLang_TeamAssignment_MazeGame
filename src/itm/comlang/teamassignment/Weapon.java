@@ -44,6 +44,8 @@ public class Weapon {
     public int getY() {
         return y;
     }
+    
+    
 
     @Override
     public String toString() {

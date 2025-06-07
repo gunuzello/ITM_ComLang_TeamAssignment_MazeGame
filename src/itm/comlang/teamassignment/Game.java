@@ -188,7 +188,6 @@ public class Game {
         int hx = hero.getX();
         int hy = hero.getY();
 
-        
         for (Renderable r : room.getRenderables()) {
             if (r instanceof Monster) {
                 int mx = r.getX();
@@ -223,6 +222,7 @@ public class Game {
     private void handleWeapon(int x, int y) {
 
         Renderable target = null;  // 삭제할 무기를 임시로 기억
+        Renderable weaponToDrop = null; //웨폰 드랍을 위해서 선언 
 
         for (Renderable r : room.getRenderables()) {
             if (r.getX() == x && r.getY() == y && r instanceof Weapon) {
@@ -239,7 +239,18 @@ public class Game {
                     String answer = sc.nextLine();
 
                     if (answer.equals("y")) {
-                        hero.equipWeapon(weapon);
+                        Weapon previousWeapon = hero.getWeapon();//갖고 있던 웨폰을 previousWeapon이라는 것 안에 넣음 
+                        hero.equipWeapon(weapon);//웨폰 바꾸기 
+
+                        //기존 웨폰 종류 찾는 if문 
+                        if (previousWeapon instanceof Stick) {
+                            weaponToDrop = new Stick(x, y);
+                        } else if (previousWeapon instanceof WeakSword) {
+                            weaponToDrop = new WeakSword(x, y);
+                        } else if (previousWeapon instanceof StrongSword) {
+                            weaponToDrop = new StrongSword(x, y);
+                        }
+
                         System.out.println("Switched to: " + weapon.getName());
                         target = r;
                     } else {
@@ -249,11 +260,16 @@ public class Game {
                 break;
             }
         }
-        // for문 끝나고 안전하게 remove!
+        // for문 끝나고 안전하게 필드에 있는거 삭제, 들고있는거 내리기.
         if (target != null) {
             room.getRenderables().remove(target);
             room.getMap()[x][y] = ' ';
             room.getRawCells()[x][y] = " ";
+        }
+        if (weaponToDrop != null) {
+            room.getRenderables().add(weaponToDrop);
+            room.getMap()[x][y] = weaponToDrop.getSymbol();
+            room.getRawCells()[x][y] = String.valueOf(weaponToDrop.getSymbol());
         }
     }
 
