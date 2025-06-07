@@ -67,7 +67,7 @@ public class Room {
                 if (cell.charAt(0) == '@') {
                     map[i][j] = ' ';  // 히어로는 Room이 아니라 Game에서 관리
                 }
-                entity = EntityFactory.createAdvancedEntity(cell, i, j);
+                entity = EntityFactory.createEntity(cell, i, j);
 
                 if (entity != null) {
                     renderables.add(entity);

@@ -12,7 +12,7 @@ public class EntityFactory {
 //used polymorphism
 
 
-    public static Renderable createAdvancedEntity(String c, int x, int y) {
+    public static Renderable createEntity(String c, int x, int y) {
         c = c.trim();
         if (c.contains("S")) {
             return new Stick(x, y);
