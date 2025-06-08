@@ -25,30 +25,38 @@ import java.util.Date;
 public class RoomFileManager {
 
     public static String copyRoomsToNewFolder(String sourceFolder) {
-        // 1. 날짜 기반 폴더 이름 생성
+        // 1. Generate a folder name based on the current timestamp
+        // 1. 현재 시간을 기반으로 폴더 이름 생성
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String folderName = "run_" + timestamp;
 
-        // 2. 최종 복사될 폴더 경로
+        // 2. Define the path where the room files will be copied
+        // 2. 복사된 방 파일이 저장될 최종 경로 정의
         Path destFolder = Paths.get("game_runs/" + folderName);
 
         try {
-            // 3. 복사 폴더 생성
+            // 3. Create the destination directory
+            // 3. 목적지 폴더 생성
             Files.createDirectories(destFolder);
 
-            // 4. .csv 파일만 골라 복사
+            // 4. Select and copy only the .csv files from the source folder
+            // 4. 소스 폴더에서 .csv 파일만 골라 복사
             DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(sourceFolder), "*.csv");
 
             for (Path file : stream) {
                 Path dest = destFolder.resolve(file.getFileName());
-                Files.copy(file, dest, StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(file, dest, StandardCopyOption.REPLACE_EXISTING); // overwrite if exists
+                // 파일이 이미 있으면 덮어쓰기
             }
 
-            // 5. 완료 메시지 및 경로 반환
+            // 5. Print completion message and return the destination path
+            // 5. 복사 완료 메시지 출력 및 경로 반환
             System.out.println("Copy Complete: " + destFolder.toString());
             return destFolder.toString();
 
         } catch (IOException e) {
+            // Print error message if copy fails
+            // 복사 실패 시 에러 메시지 출력
             System.out.println("Copy Error: " + e.getMessage());
             return null;
         }
