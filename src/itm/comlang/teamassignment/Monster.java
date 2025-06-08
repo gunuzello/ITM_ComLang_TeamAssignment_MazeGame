@@ -12,13 +12,16 @@ package itm.comlang.teamassignment;
   몬스터 클래스 - Goblin, Orc, Troll의 공통 기능 제공
  */
 public class Monster {
-    private String name;
-    private int x;
-    private int y;
-    private int hp;
-    private int damage;
-    private boolean keyHolder;
 
+    private String name;         // Name of the monster (몬스터 이름)
+    private int x;               // X coordinate (x 좌표)
+    private int y;               // Y coordinate (y 좌표)
+    private int hp;              // Hit points (체력)
+    private int damage;          // Attack damage (공격력)
+    private boolean keyHolder;   // Whether the monster holds the key (열쇠 보유 여부)
+
+    // Constructor to initialize monster properties
+    // 몬스터의 속성들을 초기화하는 생성자
     public Monster(String name, int x, int y, int hp, int damage, boolean keyHolder) {
         this.x = x;
         this.y = y;
@@ -28,37 +31,44 @@ public class Monster {
         this.name = name;
     }
 
-    //몬스터의 이름 반환
-    public String getName(){
+    // Returns the monster's name
+    // 몬스터의 이름 반환
+    public String getName() {
         return this.name;
     }
-    
-    //몬스터 위치의 x값 반환 
+
+    // Returns X coordinate
+    // 몬스터 위치의 x값 반환
     public int getX() {
         return x;
     }
 
-    //몬스터 위치의 y값 반환 
+    // Returns Y coordinate
+    // 몬스터 위치의 y값 반환
     public int getY() {
         return y;
     }
 
-    //몬스터의 체력 반환 
+    // Returns current HP
+    // 몬스터의 체력 반환
     public int getHp() {
         return hp;
     }
 
-    //해당 몬스터가 가지는 공격력 반환 
+    // Returns the monster's attack damage
+    // 해당 몬스터가 가지는 공격력 반환
     public int getDamage() {
         return damage;
     }
 
-    //해당 몬스터가 key를 들고 있는지 참.거짓 반환 
+    // Returns whether the monster holds a key
+    // 해당 몬스터가 열쇠를 들고 있는지 여부 반환
     public boolean isKeyHolder() {
         return keyHolder;
     }
 
-    //몬스터가 히어로에게 공격당했을때 받은 데미지만큼 체력 소모 
+    // Reduces HP by the given damage amount
+    // 히어로에게 공격당했을 때 체력을 감소시킴
     public void takeDamage(int damageTaken) {
         hp -= damageTaken;
         if (hp < 0) {
@@ -66,19 +76,21 @@ public class Monster {
         }
     }
 
-    //몬스터의 사망여부 확인 
-    public boolean isDead(){
-        return this.hp <=0;
+    // Checks if the monster is dead (HP <= 0)
+    // 몬스터의 사망 여부 확인
+    public boolean isDead() {
+        return this.hp <= 0;
     }
-    
-    
-    
-    //몬스터가 히어로를 공격할 때 실행
+
+    // Attacks the hero and reduces their HP
+    // 몬스터가 히어로를 공격함
     public void attack(Hero hero) {
         hero.takeDamage(this.damage);
     }
-    
+
+    @Override
     public String toString() {
-        return this.name + " (Damage: " + this.damage + " " + " HP: " + this.hp+ ")";
+        return this.name + " (Damage: " + this.damage + " HP: " + this.hp + ")";
+        // 예시 출력: "Orc (Damage: 3 HP: 8)"
     }
 }

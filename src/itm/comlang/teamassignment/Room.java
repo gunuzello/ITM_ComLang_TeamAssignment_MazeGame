@@ -16,47 +16,56 @@ import java.util.Scanner;
  */
 public class Room {
 
-    private char[][] map; // 간단한 심벌을 가진 엔티티들을 위해 
-    private String[][] rawCells; // : 와 같이 스플릿을 해야하는 엔티티들을 위해
+    private char[][] map; // For simple symbol-based entities
+    // 간단한 심벌을 가진 엔티티들을 위한 맵
+    private String[][] rawCells; // For entities that need parsing like ":"
+    // ":" 같이 추가 처리가 필요한 엔티티들을 위한 셀 데이터
     private int rows;
     private int cols;
-    // Room에 존재하는 게임 요소들을 저장할 리스트
+
     private ArrayList<Renderable> renderables = new ArrayList<>();
+    // Room 안의 엔티티 객체들을 저장하는 리스트
 
     public Room(String filePath) {
         try (Scanner scanner = new Scanner(Paths.get(filePath))) {
+            // Read the first line to get row and column info
+            // 첫 줄에서 행과 열의 정보를 읽음
             String[] parts = scanner.nextLine().split(",");
             rows = Integer.valueOf(parts[0]);
             cols = Integer.valueOf(parts[1]);
 
+            // Initialize map arrays
+            // 맵 배열 초기화
             map = new char[rows][cols];
             rawCells = new String[rows][cols];
 
+            // Read and store each cell from CSV
+            // CSV로부터 각 셀을 읽고 저장
             for (int i = 0; i < rows; i++) {
                 String line = scanner.nextLine();
                 String[] cells = line.split(",");
                 for (int j = 0; j < cols; j++) {
-
                     map[i][j] = cells[j].charAt(0);
                     rawCells[i][j] = cells[j];
-
                 }
-
             }
-            // 맵이 로딩된 후 엔티티 자동 스캔
+
+            // After loading the map, scan entities
+            // 맵을 모두 불러온 뒤 엔티티를 자동으로 스캔
             scanEntitiesFromMap();
 
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage()); // 파일 읽기 실패 시 에러 메시지 출력
         }
-
     }
 
-    // 맵을 순회하면서 각 좌표의 문자를 기반으로 객체 생성 및 리스트 추가
+    // Scan the map and create objects from cell content
+    // 맵을 순회하면서 문자에 해당하는 엔티티 객체 생성
     private void scanEntitiesFromMap() {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                String cell = rawCells[i][j].trim(); // 공백 제거 중요
+                String cell = rawCells[i][j].trim(); // Remove extra spaces
+                // 공백 제거 중요
                 Renderable entity = null;
 
                 if (cell.isEmpty()) {
@@ -65,43 +74,51 @@ public class Room {
                 }
 
                 if (cell.charAt(0) == '@') {
-                    map[i][j] = ' ';  // 히어로는 Room이 아니라 Game에서 관리
+                    map[i][j] = ' '; // Hero is handled in Game, not Room
+                    // 히어로는 Room이 아닌 Game 클래스에서 관리됨
                 }
+
                 entity = EntityFactory.createEntity(cell, i, j);
+                // 해당 문자를 통해 객체 생성
 
                 if (entity != null) {
                     renderables.add(entity);
-                    map[i][j] = entity.getSymbol();  // 이때만 심벌 덮어쓰기
+                    map[i][j] = entity.getSymbol(); // Overwrite with symbol if entity created
+                    // 객체가 생성되면 심벌로 덮어쓰기
                 }
             }
         }
     }
 
+    // Print the room with hero icon
+    // 히어로를 포함한 방 전체 출력
     public void printRoom(Hero hero) {
-
-        //1. 상단 뚜껑 만들기 
+        // 1. Print top border
+        // 상단 경계 출력
         System.out.print("+");
         for (int i = 0; i < cols; i++) {
             System.out.print("-");
         }
         System.out.println("+");
 
-        //2.좌측 벽 만들기(한 줄 단위로)(이거 반복문 돌림)
+        // 2. Print each row with left and right borders
+        // 각 행을 좌우 벽과 함께 출력
         for (int i = 0; i < rows; i++) {
             System.out.print("|");
-            //3. 한 줄 단위로 히어로 위치 확인
             for (int j = 0; j < cols; j++) {
                 if (hero != null && i == hero.getX() && j == hero.getY()) {
-                    System.out.print("☺");  // hero 현재 위치에서만 출력
+                    System.out.print("☺"); // Print hero
+                    // 히어로 위치 출력
                 } else {
                     System.out.print(getSymbolForRendering(map[i][j]));
+                    // 엔티티 심벌 출력
                 }
             }
-            //4. 우측 벽 만들기(한 줄 단위로)(여기서 반복문 하나 끝남 다시 위로 올라가지)
             System.out.println("|");
         }
 
-        //5. 하단 뚜껑 만들
+        // 3. Print bottom border
+        // 하단 경계 출력
         System.out.print("+");
         for (int i = 0; i < cols; i++) {
             System.out.print("-");
@@ -109,49 +126,58 @@ public class Room {
         System.out.println("+");
     }
 
+    // Find hero's location marked with '@'
+    // '@'로 표시된 히어로 위치 찾기
     public int[] findHeroLocation() {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (map[i][j] == '@') {
-                    return new int[]{i, j}; // 배열을 리턴 -> {x,y}와 같음
+                    return new int[]{i, j}; // Return {x, y}
+                    // 좌표 반환
                 }
             }
         }
-        return null; // @가 없으면 그냥 null 리턴.
+        return null; // If not found
+        // 히어로가 없으면 null 반환
     }
 
-    public int[] findRandomEmptySpace() { // 위 메서드를 사용했는데 @가 없으면 랜덤으로 지정해줘야하므로 필요함.
-        // 아마 Game클래스에서 if(null) -> findRandomEmptySpace() 실행하는 순서로 로직 구현해야할듯.
+    // Find a random empty space (used when hero position not found)
+    // 빈 공간 중 하나를 무작위로 반환
+    public int[] findRandomEmptySpace() {
         ArrayList<int[]> emptyspace = new ArrayList<>();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (map[i][j] == ' ') {
-                    emptyspace.add(new int[]{i, j}); // 리스트에 빈 좌표들을 저장
+                    emptyspace.add(new int[]{i, j});
+                    // 빈 공간 저장
                 }
             }
         }
         if (emptyspace.isEmpty()) {
-            return null; // 맵에 빈공간이 없을경우 null 리턴
+            return null; // No empty space
         }
-        Random random = new Random(); // 랜덤하게 정수를 뽑아주는 클래스 (자바유틸)
-        return emptyspace.get(random.nextInt(emptyspace.size())); // nextInt() 메서드는 랜덤으로 숫자를 뽑아주므로 , ()안에 배열 크기를 초과하는 
-        // 불상사를 방지하기위해 .size()로 방지.
-    }// 게임 로직에서 사용할 수 있도록 각 리스트 getter 제공
+        Random random = new Random();
+        return emptyspace.get(random.nextInt(emptyspace.size()));
+        // 랜덤한 위치 반환
+    }
 
+    // Save the current room state to a CSV file
+    // 현재 방의 상태를 CSV 파일로 저장
     public void saveRoomToFile(String path) {
         try (PrintWriter writer = new PrintWriter(path)) {
-            // 첫 줄에 행과 열 정보 저장
-            writer.println(rows + "," + cols);
+            writer.println(rows + "," + cols); // Save dimensions
+            // 행과 열 정보 저장
 
-            // map 배열을 한 줄씩 저장
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     writer.print(rawCells[i][j]);
                     if (j < cols - 1) {
-                        writer.print(",");  // 마지막 열이 아닐 때만 쉼표 추가
+                        writer.print(","); // Add comma between cells
+                        // 셀 사이에 쉼표 추가
                     }
                 }
-                writer.println(); // 한 줄 끝나면 줄바꿈
+                writer.println(); // Move to next line
+                // 한 줄 끝나면 줄바꿈
             }
 
             System.out.println("Room state saved to: " + path);
@@ -160,6 +186,8 @@ public class Room {
         }
     }
 
+    // Getters
+    // getter 메서드들
     public ArrayList<Renderable> getRenderables() {
         return renderables;
     }
@@ -180,6 +208,8 @@ public class Room {
         return cols;
     }
 
+    // Convert character codes to printable symbols for UI
+    // 문자 코드를 출력용 심벌로 변환
     public static String getSymbolForRendering(char c) {
         if (c == '@') {
             return "☺";
