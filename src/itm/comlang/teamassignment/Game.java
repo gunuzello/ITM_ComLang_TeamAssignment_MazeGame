@@ -20,28 +20,34 @@ public class Game {
     private String copiedFolder;
     private String currentRoomFileName;
 
-    //히어로 위치 인식 및 객체 배치, 게임 시작시 초기세팅이다. 처음에 room1을 여는 것은 불변이므로 고정값으로 줌 
+    //히어로 위치 인식 및 객체 배치, 게임 시작시 초기세팅이다. 처음에 room1을 여는 것은 불변이므로 고정값으로 줌
+    // Initial setting when the game starts. Always load room1 first.
     public Game() {
         // 1. 복사 먼저 수행
+        // 1. Copy the rooms first
         this.copiedFolder = RoomFileManager.copyRoomsToNewFolder("rooms");
 
         // 2. 복사 실패 시 종료 처리 (혹시라도 에러났을 때)
+        // 2. If copying fails, terminate the game
         if (copiedFolder == null) {
             System.out.println("Cannot start the Game.");
             return;
         }
 
         // 3. 복사된 폴더에서 room1.csv 로드
+        // 3. Load room1.csv from the copied folder
         this.currentRoomFileName = "room1.csv";
         this.room = new Room(copiedFolder + "/" + currentRoomFileName);
         int[] heroLocation = room.findHeroLocation(); //heroLocation 에다가 히어로를 찾는 메소드 사용해서 좌표값 집어넣음 
 
         if (heroLocation != null) {
             // case 1: @가 있으면 거기로 생성
+            // case 1: if '@' exists, create hero at that location
             this.hero = new Hero(heroLocation[0], heroLocation[1]);
         } else {
             // case 2: @가 없을 때
             // 먼저 (1,1) 시도
+            // case 2: if '@' doesn't exist
             if (room.getMap()[1][1] == ' ') {
                 this.hero = new Hero(1, 1);
             } else {
@@ -53,6 +59,7 @@ public class Game {
     }
 
     // 게임 구동을 위한 메인 루프, 사실상 이 메소드를 메인클래스에서 구동함
+    // Main game loop
     public void GameRunning() {
         while (true) {
             System.out.println("AdventureGame");
@@ -62,13 +69,14 @@ public class Game {
             System.out.println("Enter command (u/d/l/r to move, a to attack, q to quit): ");
             String command = sc.nextLine();
 
-            //q누르면 움직이지 않고 종료해버리면 되니까 가장 먼저 배치 
+            //q누르면 움직이지 않고 종료해버리면 되니까 가장 먼저 배치
+            //press 'q' should be place first. 
             if (command.equals("q")) {
                 break;
             }
 
             if (command.equals("a")) {
-                handleAttack();  // 새로 추가되는 메소드
+                handleAttack();
             } else {
                 hero.move(command, room.getMap());
                 processCell();
@@ -82,14 +90,15 @@ public class Game {
     }
 
     //히어로가 이동을 한 후 히어로의 위치에 있는 문자에 대해 우리가 이미 초기에 파악해 놓은 리스트안에 들어있는 객체에서 꺼내는것 까지의 골격 
+    // Process item/object logic after hero moves
     public void processCell() {
         int x = hero.getX();
         int y = hero.getY();
         char cell = room.getMap()[x][y];
 
         // 무기 검색
-        if (cell == 'S' || cell == 'W' || cell == 'X') { //무기를 찾았을때
-            handleWeapon(x, y);//무기찾고 행동 메소드
+        if (cell == 'S' || cell == 'W' || cell == 'X') { //무기를 찾았을때(When find weapon)
+            handleWeapon(x, y);//무기찾고 행동 메소드(Method after find weapon)
         }
 
         // 포션 검색
@@ -98,7 +107,9 @@ public class Game {
         }
 
         // 몬스터를 다루는 부분은 handleAttack으로 책임을 다 넘김. processCell은 오직 아이템만 관리 
+        //(processCell deal with only item. Dealing with monster is all for handleAttack.
         // 문 검색
+        // search Door
         if (cell == 'd' || cell == 'D') {
             handleDoor(x, y);
         }
@@ -121,16 +132,19 @@ public class Game {
                     System.out.println("Moving to next room: " + door.getNextRoomFile());
 
                     // 현재 방 상태 저장
+                    // Store the current Room condition
                     room.saveRoomToFile(copiedFolder + "/" + currentRoomFileName);
                     System.out.println("Moving to next room: " + door.getNextRoomFile());
 
                     // 새 방 로드
+                    // load the NewRoom condition
                     String previousRoomFileName = currentRoomFileName;
                     this.currentRoomFileName = door.getNextRoomFile();
                     this.room = new Room(copiedFolder + "/" + currentRoomFileName);
 
                     // 새 room에서 히어로 위치도 다시 설정
                     // 새 room에서 히어로 위치 설정 (handleDoor 안에 직접 작성 가능)
+                    // In the NewRoom, place the Hero.
                     int doorX = -1, doorY = -1;
                     for (Renderable nextR : room.getRenderables()) {
                         if (nextR instanceof Door) {
@@ -149,6 +163,7 @@ public class Game {
                     }
 
                     // 8방향 랜덤 스폰 (벽 뚫지 않기)
+                    // Randomly Spawn nearby the door
                     int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
                     int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 
@@ -159,7 +174,7 @@ public class Game {
 
                         if (newX >= 0 && newX < room.getRows() && newY >= 0 && newY < room.getCols()) {
                             char targetCell = room.getMap()[newX][newY];
-                            if (targetCell == ' ') {  // 빈 공간일 때만 허용
+                            if (targetCell == ' ') {  // 빈 공간일 때만 허용(Only allow for empty place)
                                 emptySpots.add(new int[]{newX, newY});
                             }
                         }
@@ -173,6 +188,7 @@ public class Game {
 
                     } else {
                         // 주변 빈 공간 없으면 전체 랜덤
+                        // if there are no empty place => place the hero for all randomly
                         int[] randomLoc = room.findRandomEmptySpace();
                         hero.setX(randomLoc[0]);
                         hero.setY(randomLoc[1]);
@@ -193,7 +209,8 @@ public class Game {
                 int mx = r.getX();
                 int my = r.getY();
 
-                // 인접 판별 : 좌/우/상/하만 확인
+                // 인접 판별 : 좌/우/상/하/대각선 확인
+                // detect the nearby with monster
                 if ((mx == hx - 1 && my == hy - 1)
                         || // ↖
                         (mx == hx - 1 && my == hy)
@@ -210,7 +227,7 @@ public class Game {
                         || // ↓
                         (mx == hx + 1 && my == hy + 1) // ↘
                         ) {
-                    handleMonster(mx, my);//있으면 맞다이 할 수 있음
+                    handleMonster(mx, my);//있으면 맞다이 할 수 있음(If it is nearby the monster, you can attack)
                     return;
                 }
             }
@@ -219,10 +236,11 @@ public class Game {
     }
 
     //웨폰 만났을때 행동 메소드
+    //Method with weapon 
     private void handleWeapon(int x, int y) {
 
-        Renderable target = null;  // 삭제할 무기를 임시로 기억
-        Renderable weaponToDrop = null; //웨폰 드랍을 위해서 선언 
+        Renderable target = null;  // 삭제할 무기를 임시로 기억(Remember the removable weapon) 
+        Renderable weaponToDrop = null; //웨폰 드랍을 위해서 선언 (announce for weapon drop) 
 
         for (Renderable r : room.getRenderables()) {
             if (r.getX() == x && r.getY() == y && r instanceof Weapon) {
@@ -239,10 +257,11 @@ public class Game {
                     String answer = sc.nextLine();
 
                     if (answer.equals("y")) {
-                        Weapon previousWeapon = hero.getWeapon();//갖고 있던 웨폰을 previousWeapon이라는 것 안에 넣음 
-                        hero.equipWeapon(weapon);//웨폰 바꾸기 
+                        Weapon previousWeapon = hero.getWeapon();//갖고 있던 웨폰을 previousWeapon이라는 것 안에 넣음 (remember previousWeapon)
+                        hero.equipWeapon(weapon);//웨폰 바꾸기 (exchange the weapon)
 
                         //기존 웨폰 종류 찾는 if문 
+                        // Find the type of weapon of previous weapon 
                         if (previousWeapon instanceof Stick) {
                             weaponToDrop = new Stick(x, y);
                         } else if (previousWeapon instanceof WeakSword) {
@@ -261,6 +280,7 @@ public class Game {
             }
         }
         // for문 끝나고 안전하게 필드에 있는거 삭제, 들고있는거 내리기.
+        // After "for", remove the icon in the field, and Drop the previous weapon. 
         if (target != null) {
             room.getRenderables().remove(target);
             room.getMap()[x][y] = ' ';
@@ -274,6 +294,7 @@ public class Game {
     }
 
     //포션 행동 메소드 
+    // Potion method 
     private void handlePotion(int x, int y) {
         for (Renderable r : room.getRenderables()) {
             if (r.getX() == x && r.getY() == y && r instanceof Potion) {
@@ -296,6 +317,7 @@ public class Game {
     }
 
     //몬스터 전투 행동 메소드 
+    // monster attack method 
     private void handleMonster(int x, int y) {
         for (Renderable r : room.getRenderables()) {
             if (r.getX() == x && r.getY() == y && r instanceof Monster) {
@@ -304,17 +326,20 @@ public class Game {
                 System.out.println("Encountered " + monster.getName() + " (HP: " + monster.getHp() + ")");
 
                 //히어로가 무기가 없으면 싸우지 못한다는 것
+                // Cannot fight without weapon 
                 if (!hero.isArmed()) {
                     System.out.println("You have no weapon to attack! Escape or find a weapon.");
                     return;
                 }
 
                 //몬스터가 살아있고, 히어로도 살아있을때 공격여부 결정
+                // monster is alive, Hero is alive.
                 while (monster.getHp() > 0 && hero.isStillAlive()) {
                     System.out.print("Attack? (y/n): ");
                     String choice = sc.nextLine();
 
                     //공격을 한다면 히어로 => 몬스터 순서로 공격
+                    //sequence : hero => monster 
                     if (choice.equals("y")) {
                         monster.takeDamage(hero.countDamage());
                         System.out.println("You hit " + monster.getName() + ". Monster HP: " + monster.getHp());
@@ -323,13 +348,14 @@ public class Game {
                             hero.takeDamage(monster.getDamage());
                             System.out.println(monster.getName() + " hits back! Your HP: " + hero.getHP());
                         }
-                    } else { //공격 안할거면 그냥 넘어가기
+                    } else { //공격 안할거면 그냥 넘어가기(do not attack just pass)
                         System.out.println("You chose not to attack.");
                         break;
                     }
                 }
 
                 //몬스터가 죽었을때 필드에서 삭제, 트롤의 경우에는 키를 드랍
+                // Remove the monster, if it is Troll, drop the Key)
                 if (monster.getHp() <= 0) {
                     System.out.println(monster.getName() + " is defeated!");
 

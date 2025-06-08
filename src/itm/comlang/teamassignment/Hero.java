@@ -27,6 +27,7 @@ public class Hero implements Renderable {
     }
 
     //지금 히어로가 가진 무기로 얼마만큼의 공격력을 가지는지 측정 
+    // Calculate hero's attack power based on the equipped weapon 
     public int countDamage() {
         if (this.weapon != null) {
             return this.weapon.getDamage();
@@ -35,6 +36,7 @@ public class Hero implements Renderable {
     }
 
     //히어로가 받는 데미지 값을 받아서 실제로 hp가 깎이도록 설정 
+    // Apply damage to hero (decrease HP)
     public void takeDamage(int damage) {
         this.hp -= damage;
         if (this.hp < 0) {
@@ -43,6 +45,7 @@ public class Hero implements Renderable {
     }
 
     //히어로가 힐을 받을때 최대 체력인 25를 넘지 않도록 설정(반환값 없음)
+    // Heal hero (HP cannot exceed 25)
     public void heal(int potion) {
         this.hp += potion;
         if (this.hp > 25) {
@@ -52,6 +55,7 @@ public class Hero implements Renderable {
     }
 
     //히어로가 가진 웨폰을 다른 웨폰으로 교체 
+    // Equip a new weapon
     public void equipWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
@@ -88,6 +92,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
         
 
         // 맵 범위 체크
+        // Check map boundaries
         if (newX < 0 || newX >= map.length || newY < 0 || newY >= map[0].length) {
             System.out.println("You can't escape the map!");
             return;
@@ -100,6 +105,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
         }
 
         // 이전 위치를 비우고, 새 위치에 @ 표시
+        // Update position
         this.x = newX;
         this.y = newY;
 
@@ -110,31 +116,37 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
     }
 
     //히어로의 무기값 반환 
+    // Return hero's weapon
     public Weapon getWeapon() {
         return this.weapon;
     }
 
     //히어로의 hp값 반환 
+    // Return hero's HP
     public int getHP() {
         return this.hp;
     }
 
     //히어로 위치의 x값 반환 
+    // Return hero's x-coordinate
     public int getX() {
         return this.x;
     }
 
     //히어로 위치의 y값 반환 
+    // Return hero's y-coordinate
     public int getY() {
         return this.y;
     }
 
     //히어로의 key보유 여부 확인 
+    // Return whether hero has the key
     public boolean hasKey() {
         return this.hasKey;
     }
 
     //히어로가 key를 가졌을때 hasKey 값을 변화시킴(반환값 없음)
+    // Acquire the key
     public void earnKey() {
         this.hasKey = true;
     }
@@ -147,6 +159,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
     }
 
     //히어로의 생존여부 반환 
+    // Return whether hero is still alive
     public boolean isStillAlive() {
         if (this.hp > 0) {
             return true;
@@ -155,6 +168,7 @@ x=5 → |   |   |   |   |   |   ← 맨 아래 (map[4][4])
     }
 
     //히어로의 위치값 초기화 
+    // Reset hero's position
     public void setLocation(int x, int y) {
         this.x = x;
         this.y = y;
