@@ -25,7 +25,9 @@ public class Room {
 
     private ArrayList<Renderable> renderables = new ArrayList<>();
     // Room 안의 엔티티 객체들을 저장하는 리스트
+    // List for entity objects
 
+    
     public Room(String filePath) {
         try (Scanner scanner = new Scanner(Paths.get(filePath))) {
             // Read the first line to get row and column info
@@ -111,7 +113,7 @@ public class Room {
                     // 히어로 위치 출력
                 } else {
                     System.out.print(getSymbolForRendering(map[i][j]));
-                    // 엔티티 심벌 출력
+                    //유니코드 출력
                 }
             }
             System.out.println("|");
@@ -159,6 +161,7 @@ public class Room {
         Random random = new Random();
         return emptyspace.get(random.nextInt(emptyspace.size()));
         // 랜덤한 위치 반환
+        // nextInt(5) = (0 ~ 4)
     }
 
     // Save the current room state to a CSV file
@@ -170,8 +173,10 @@ public class Room {
 
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
-                    writer.print(rawCells[i][j]);
-                    if (j < cols - 1) {
+                    writer.print(rawCells[i][j]); //without this, we cannot load nextRoom (because of door)
+                    if (j < cols - 1) { //"cols - 1" is used to skip the last column,   so that commas are added only **between** cells,   
+                                        // and not **after** the final cell in each row.
+
                         writer.print(","); // Add comma between cells
                         // 셀 사이에 쉼표 추가
                     }
